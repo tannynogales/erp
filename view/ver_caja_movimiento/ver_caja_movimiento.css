@@ -1,0 +1,33 @@
+.glyphicon-zoom-in, .glyphicon-remove-circle
+{
+        opacity: 0.1;
+        cursor: pointer;
+} 
+.glyphicon-zoom-in:hover, .glyphicon-remove-circle:hover
+{
+        opacity: 0.5;
+}
+.glyphicon-zoom-in:active, .glyphicon-remove-circle:active
+{
+        opacity: 1;
+} 
+
+.lastTH
+{
+    width: 50px;
+}
+td[campo="monto_suma"]
+{
+    text-align: right;
+}
+span.moneda
+{
+    float: left;
+}
+
+
+a 
+{
+  color: inherit; /* blue colors for links too */
+  text-decoration: inherit; /* no underline */
+}

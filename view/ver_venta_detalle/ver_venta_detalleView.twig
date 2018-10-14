@@ -1,0 +1,71 @@
+{% extends "base.twig" %}
+
+{% block title %}VER VENTAS DETALLE{% endblock title %}
+{% block head %}
+    {{ parent() }}
+    <script type="text/javascript" src="view/ver_venta_detalle/ver_venta_detalle.js"></script>
+    <link rel="stylesheet" href="./view/ver_venta_detalle/ver_venta_detalle.css" media="all" />
+{% endblock %}
+
+{% block content %}
+<h1>VER VENTAS DETALLE</h1>
+
+{% if rol_2 == TRUE %}   
+<button id="button_filtrar_pendiente" class="btn btn-default">
+    Filtrar Pendientes de Validar
+</button>
+<br><br> 
+{% endif %} 
+
+<label for="from">From</label>
+<input type="text" id="from" name="from">
+<label for="to">to</label>
+<input type="text" id="to" name="to">
+
+<div class="table-responsive">         
+    <table class="table table-bordered table-striped table-hover">
+        <thead>
+            <tr>
+                <th>TIPO</th>
+                <th>ID/FOL.</th>
+                <th>F. VENTA</th>
+                <th>BODEGA</th>
+                <th>F. REGISTRO</th>
+                <th>USUARIO</th>
+                <th>NETO</th>
+                <th>IVA</th>
+                <th>TOTAL</th>
+                <th class="lastTH"></th>
+            </tr>
+        </thead>
+        <tbody>
+{% for dato in datos %}
+            <tr filaID="{{ dato.id }}" validado="{{ dato.validado }}" fuente="{{ dato.fuente }}">
+                <td campo="tipo_venta">{{ dato.venta_tipo }}</td>
+                <td campo="id">{{ dato.id }}</td>
+                <td campo="fecha_venta">{{ dato.fecha_venta }}</td>
+                <td campo="bodega">{{ dato.bodega }}</td>
+                <td campo="fecha_registro">{{ dato.fecha_registro }}</td>
+                <td campo="usuario">{{ dato.usuario }}</td>
+                <td campo="neto">{{ dato.neto }}</td>
+                <td campo="iva">{{ dato.iva }}</td>
+                <td campo="total">{{ dato.total }}</td>
+                <td>
+                    {% if rol_2 == TRUE %}
+                        <span class="glyphicon glyphicon-ok" aria-hidden="true" validado="{% if dato.validado == 0 %}0{% else %}1{% endif %}" filaID="{{ dato.id }}" fuente="{{ dato.fuente }}"></span>
+                    {% endif %} 
+
+                    {% if dato.validado == 0 and dato.fuente != 'dte' %}
+                        <span class="glyphicon glyphicon-pencil" aria-hidden="true" filaID="{{ dato.id }}"></span>
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true" filaID="{{ dato.id }}"></span>
+                    {% endif %}
+                    
+                    <span class="glyphicon glyphicon-eye-open" aria-hidden="true" filaID="{{ dato.id }}" fuente="{{ dato.fuente }}"></span>    
+                </td>
+            </tr>
+{% endfor %}
+        </tbody>
+    </table>
+</div>        
+
+{% endblock %}

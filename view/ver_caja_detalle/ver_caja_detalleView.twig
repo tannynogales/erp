@@ -1,0 +1,36 @@
+{% extends "base.twig" %}
+
+{% block title %}Ver Caja Detalle{% endblock title %}
+{% block head %}
+    {{ parent() }}
+    <script type="text/javascript" src="view/ver_caja_detalle/ver_caja_detalle.js"></script>
+    <link rel="stylesheet" href="./view/ver_caja_detalle/ver_caja_detalle.css" media="all" />
+{% endblock %}
+
+{% block content %}
+<h1>VER CAJA DETALLE</h1>
+
+<div class="table-responsive">         
+    <table class="table table-bordered table-striped table-hover">
+        <thead>
+            <tr> 
+                <th>id</th>
+                <th>CAJA</th>
+                <th>MONTO</th>
+                <th>FECHA</th>
+            </tr>
+        </thead>
+        <tbody>
+{% for dato in datos %}
+            <tr filaID="{{ dato.id }}">
+                <td campo="id">{{ dato.id }}</td>
+                <td campo="caja_usuario_nombre">{{ dato.caja_usuario_nombre}}</td>
+                <td campo="monto"><span class="moneda">$</span>{{ dato.monto }}</td>
+                <td campo="movimiento_fecha">{{ dato.movimiento_fecha }}</td>
+            </tr>
+{% endfor %}
+        </tbody>
+    </table>
+</div>        
+
+{% endblock %}

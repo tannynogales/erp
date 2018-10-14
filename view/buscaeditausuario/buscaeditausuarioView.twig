@@ -1,0 +1,74 @@
+{% extends "base.twig" %}
+
+{% block title %}Index{% endblock title %}
+
+{% block head %}
+    {{ parent() }}
+    <script type="text/javascript" src="./view/buscaeditausuario/buscaeditausuario.js"></script>
+    <link rel="stylesheet" href="./view/buscaeditausuario/buscaeditausuario.css" media="all" />
+{% endblock %}
+
+{% block content %}
+    
+<h1>{% if state == "true" %}EDITAR USUARIO{% else %}BUSCAR USUARIO{% endif %}</h1>
+    
+<div class="{% if (state == "true") or (state == "trueEdit") %}alert alert-success{% elseif (state == "false") or (state == "falseEdit") %}alert alert-danger{% elseif state == "emptyForm" %}alert alert-info{% else %}alert alert-warning{% endif %}" role="alert">
+    <span class="{% if state == "true" %}glyphicon glyphicon-ok{% elseif state == "false" %}glyphicon glyphicon-remove{% endif %}" aria-hidden="true"></span>
+    <strong>({{ state }}) </strong> {{ message }}
+</div>
+
+{% if state == "true" %}
+<form action="index.php?controller=usuarios&action=actualizar" method="post">
+    <div class="form-group">
+        <label for="id">ID:</label>
+        <input type="text" class="form-control" name="id" value="{{ usuario.id }}" readonly>
+    </div>
+    <div class="form-group">
+        <label for="rut">Rut:</label>
+        <input type="text" class="form-control" name="rut" value="{{ usuario.rut }}" id="rut">
+    </div>    
+    <div class="form-group">
+        <label for="nombre">Nombre:</label>
+        <input type="text" class="form-control" name="nombre" value="{{ usuario.nombre }}">
+    </div>
+    <div class="form-group">
+        <label for="aPaterno">Apellido Panterno:</label>
+        <input type="text" class="form-control" name="aPaterno" value="{{ usuario.aPaterno }}">
+    </div>
+    
+    <div class="form-group">
+        <label for="aMaterno">Apellido Materno:</label>
+        <input type="text" class="form-control" name="aMaterno" value="{{ usuario.aMaterno }}">
+    </div>
+    
+    <div class="form-group">
+        <label for="email">Correo:</label>
+        <input type="text" class="form-control" name="email" value="{{ usuario.email }}">
+    </div>
+    <div class="form-group">
+        <label for="password">Contraseña:</label>
+        <input type="text" class="form-control" name="password" value="{{ usuario.password }}">
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+      <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Guardar Cambios
+    </button>
+
+</form>
+{% else %}
+<form action="index.php?controller=usuarios&action=editar" method="get">
+    <div class="form-group">
+        <label for="rut_busca">Rut del Usuario:</label>
+        <input type="text" class="form-control" name="rut_busca" id="rut_busca">
+        <input type="text" style="display:none" name="controller" value="usuarios"  readonly>
+        <input type="text" style="display:none" name="action"     value="editar"    readonly>
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+      <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Buscar Usuario
+    </button>
+
+</form>
+{% endif %}                
+
+{% endblock %}

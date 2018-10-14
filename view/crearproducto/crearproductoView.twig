@@ -1,0 +1,112 @@
+{% extends "base.twig" %}
+
+{% block title %}Crear Producto{% endblock title %}
+{% block head %}
+    {{ parent() }}
+    <script type="text/javascript" src="view/crearproducto/crearproducto.js"></script>
+    <link rel="stylesheet" href="./view/crearproducto/crearproducto.css" media="all" />
+    
+{% endblock %}
+
+{% block content %}
+<h1>PRODUCTO</h1>
+
+<div class="{% if state == "true" %}alert alert-success{% elseif state == "false" %}alert alert-danger{% elseif state == "emptyForm" %}alert alert-info{#{% else %}alert alert-warning#}{% endif %}" role="alert">
+    {% if state == "true" or state == "false" %}
+        <span class="{% if state == "true" %}glyphicon glyphicon-ok{% elseif state == "false" %}glyphicon glyphicon-remove{% endif %}" aria-hidden="true"></span>
+    {% endif %}
+    ({{ state }}) - {{ message }}
+</div>
+    
+{% if state == "true" %}
+{#Hola 1#}
+{% else %}    
+
+<form action="index.php?controller=producto&action=crear" method="post" enctype="multipart/form-data">
+
+<div class="panel panel-default">
+    {#
+    <div class="panel-heading"><label>Producto ID</label></div>
+    <div class="panel-body">
+        <input type="text" name="producto_id" class="form-control" required>  
+    </div>
+    #}
+    <div class="panel-heading"><label>Código</label></div>
+    <div class="panel-body">
+        <input type="text" name="codigo" id="codigo" class="form-control" maxlength="15" required>
+        <span id="codigo_advertencia" class="advertencia">Este código ya existe</span>
+    </div>
+
+    <div class="panel-heading"><label>Nombre</label></div>
+    <div class="panel-body">
+        <input type="text" name="nombre" class="form-control" maxlength="250" required>  
+    </div>    
+
+    <div class="panel-heading"><label>Precio Público</label></div>
+    <div class="panel-body">
+        <input type="text" name="precio" id="precio" class="form-control" value="$ 0" required>  
+    </div>   
+
+    <div class="panel-heading"><label>Precio Mayorista</label></div>
+    <div class="panel-body">
+        <input type="text" name="precio_mayorista" id="precio_mayorista" class="form-control" value="$ 0" required>  
+    </div>   
+
+    <div class="panel-heading"><label>Precio Web</label></div>
+    <div class="panel-body">
+        <input type="text" name="precio_web" id="precio_web" class="form-control" value="$ 0" required>  
+    </div> 
+    
+    <div class="panel-heading"><label>Costo</label></div>
+    <div class="panel-body">
+        <input type="text" name="costo" id="costo" class="form-control" value="$ 0" required>  
+    </div>  
+
+    <div class="panel-heading"><label>Habilitado</label></div>
+    <div class="panel-body">
+        <label class="radio-inline"><input type="radio" name="habilitado" value="0" checked>Deshabilitado</label>
+        <label class="radio-inline"><input type="radio" name="habilitado" value="1">Habilitado</label>
+    </div>  
+
+    <div class="panel-heading"><label>Muestra Precio</label></div>
+    <div class="panel-body">
+        <label class="radio-inline"><input type="radio" name="muestra_precio" value="1">Si</label>
+        <label class="radio-inline"><input type="radio" name="muestra_precio" value="0" checked>No</label>
+    </div>  
+
+    <div class="panel-heading"><label>Destacado</label></div>
+    <div class="panel-body">
+        <label class="radio-inline"><input type="radio" name="destacado"  value="1">Si</label>
+        <label class="radio-inline"><input type="radio" name="destacado"  value="0" checked>No</label>
+    </div>  
+
+    <div class="panel-heading"><label>Exento</label></div>
+    <div class="panel-body">
+        <label class="radio-inline"><input type="radio" name="exento"  value="1">Si</label>
+        <label class="radio-inline"><input type="radio" name="exento"  value="0" checked>No</label>
+    </div>  
+    
+    <div class="panel-heading"><label>Descripción Corta</label></div>
+    <div class="panel-body">
+        <input type="text" name="descripcion_corta" class="form-control" maxlength="300" required>  
+    </div>  
+    
+    <div class="panel-heading"><label>Descripción Larga</label></div>
+    <div class="panel-body">
+        <textarea name="descripcion_larga" class="form-control" rows="5" id="comment"></textarea>  
+    </div>    
+</div>
+       
+    
+    <button type="submit" id="submit_button" class="btn btn-primary" disabled>
+      <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Crear Producto
+    </button>
+        
+  </form>
+    
+    
+{% endif %}
+
+
+{% endblock %}
+

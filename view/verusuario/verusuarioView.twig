@@ -1,0 +1,73 @@
+{% extends "base.twig" %}
+
+{% block title %}Ver Usuarios{% endblock title %}
+{% block head %}
+    {{ parent() }}
+    <script type="text/javascript" src="view/verusuario/verusuario.js"></script>
+    <link rel="stylesheet" href="./view/verusuario/verusuario.css" media="all" />
+{% endblock %}
+
+{% block content %}
+<h1>VER USUARIOS</h1>
+        
+<div class="table-responsive">         
+    <table class="table table-bordered table-striped table-hover">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Rut</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Email</th>
+                <th campo="password">Contraseña</th>
+                <th class="lastTH"></th>
+            </tr>
+        </thead>
+        <tbody>
+{% for user in users %}
+            <tr userID="{{ user.id }}">
+                <td campo="id">{{ user.id }}</td>
+                <td campo="rut">{{ user.rut }}</td>
+                <td campo="nombre">{{ user.nombre }}</td>
+                <td campo="aPaterno">{{ user.aPaterno }} {{ user.aMaterno }}</td>
+                <td campo="email">{{ user.email }}</td>
+                <td campo="password">{{ user.password }}</td>
+                <td>
+                    <span class="glyphicon glyphicon-pencil" aria-hidden="true" userID="{{ user.id }}"></span>
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true" userID="{{ user.id }}"></span>
+                </td>
+            </tr>
+{% endfor %}
+        </tbody>
+    </table>
+</div>        
+
+{#
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">ELIMINAR USUARIO</h4>
+      </div>
+      <div class="modal-body">
+          <p>¿Esta <strong>seguro</strong> de querer eliminar al usuario "<span id="elimina_nombre">NOMBRE</span>", Rut: <span id="elimina_rut">xx.xxx.xxx-x</span>?</p>
+          <p class="idInterno">(ID Interno: <span id="elimina_id">NOMBRE</span>)</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button id="delete_form_button" type="button" class="btn btn-primary">ELIMINAR</button>
+      </div>
+    </div>
+  </div>
+</div>
+#}
+{% endblock %}

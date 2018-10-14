@@ -1,0 +1,30 @@
+{% extends "base.twig" %}
+
+{% block title %}VER FACTURAS{% endblock title %}
+{% block head %}
+    {{ parent() }}
+    <script type="text/javascript" src="view/verfactura/ver_folios_sin_usar.js"></script>
+    <link rel="stylesheet" href="./view/verfactura/ver_folios_sin_usar.css" media="all" />
+{% endblock %}
+
+{% block content %}
+<h1>FOLIOS SIN USAR</h1>
+
+<div class="table-responsive">         
+    <table class="table table-bordered table-striped table-hover">
+        <thead>
+            <tr>
+                <th>FOLIO</th>
+            </tr>
+        </thead>
+        <tbody>
+{% for dato in datos %}
+            <tr>
+                <td>{{ dato }}</td>
+            </tr>
+{% endfor %}
+        </tbody>
+    </table>
+</div>        
+
+{% endblock %}

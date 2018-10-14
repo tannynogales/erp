@@ -1,0 +1,36 @@
+{% extends "base.twig" %}
+
+{% block title %}Index{% endblock title %}
+{% block head %}
+    {{ parent() }}
+    <script type="text/javascript" src="view/verconteo/verconteo.js"></script>
+    <link rel="stylesheet" href="./view/verconteo/verconteo.css" media="all" />
+{% endblock %}
+
+{% block content %}
+<h1>VER CONTEO</h1>
+
+<div class="table-responsive">         
+    <table class="table table-bordered table-striped table-hover">
+        <thead>
+            <tr> 
+                <th>ID</th>
+                <th>BODEGA</th>
+                <th>F. CONTEO</th>
+                <th>DETALLE</th>
+            </tr>
+        </thead>
+        <tbody>
+{% for dato in datos %}
+            <tr filaID="{{ dato.id }}">
+                <td campo="id">{{ dato.id }}</td>
+                <td campo="fecha_movimiento">{{ dato.bodega_nombre}}</td>
+                <td campo="fecha_registro">{{ dato.fecha_inventario }}</td>
+                <td campo="usuario_id"><ul>{% for producto in dato.productos %}<li>({{ producto.producto_codigo }}) {{ producto.producto_nombre }} = {{ producto.cantidad }}</li>{% endfor %}</ul></td>
+            </tr>
+{% endfor %}
+        </tbody>
+    </table>
+</div>        
+
+{% endblock %}

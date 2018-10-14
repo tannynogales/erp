@@ -1,0 +1,102 @@
+{% extends "base.twig" %}
+
+{% block title %}VER PRODUCTOS{% endblock title %}
+{% block head %}
+    {{ parent() }}
+    <script type="text/javascript" src="view/verproducto/verproducto.js?20170221"></script>
+    <link rel="stylesheet" href="./view/verproducto/verproducto.css?20170221" media="all" />
+{% endblock %}
+
+{% block content %}
+<h1>VER PRODUCTOS</h1>
+<input id="filtrar_productos" type="text" class="form-control" maxlength="15" placeholder="Ingrese palabra para filtrar" required>
+<br>
+<div class="table-responsive">         
+    <table id="tabla_productos" class="table table-bordered table-striped table-hover">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>CÓDIGO</th>
+                <th>NOMBRE</th>
+                <th>DESCRIPCIÓN</th>
+                <th>PÚBLICO</th>
+                <th>MAYORISTA</th>
+                <th>WEB</th>
+                {% if rol_2 == TRUE %}<th>COSTO</th>{% endif %}
+                <th>OK</th>
+                <th class="lastTH"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cliente in clientes %}
+            <tr filaID="{{ dato.id }}">
+                <td campo="id">{{ dato.id }}</td>
+                <td campo="codigo">{{ dato.codigo }}</td>
+                <td campo="nombre">{{ dato.nombre }}</td>
+                <td campo="descripcion">{{ dato.descripcion|raw  }}</td>
+                <td campo="precio"><span class="moneda">$</span>{{ dato.precio }}</td>
+                <td campo="precio_mayorista"><span class="moneda">$</span>{{ dato.precio_mayorista }}</td>
+                <td campo="precio_web"><span class="moneda">$</span>{{ dato.precio_web }}</td>
+                {% if rol_2 == TRUE %}<td campo="costo"><span class="moneda">$</span>{{ dato.costo }}</td>{% endif %}
+                <td campo="validado">{{ dato.validado }}</td>
+                <td>
+                    {% if rol_2 == TRUE or rol_3 == TRUE %}
+                    <span class="glyphicon glyphicon-pencil" aria-hidden="true" filaID="{{ dato.id }}" codigo="{{ dato.codigo }}"></span>
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true" filaID="{{ dato.id }}" codigo="{{ dato.codigo }}"></span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{#
+<div class="container">
+  <div class="row">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>
+            Fixed Header Scrolling Table 
+          </h4>
+        </div>
+        <table class="table table-fixed">
+          <thead>
+            <tr>
+              <th class="col-xs-1">#</th>
+              <th class="col-xs-1">CÓDIGO</th>
+              <th class="col-xs-1">NOMBRE</th>
+              <th class="col-xs-5">DESCRIPCIÓN</th>
+              <th class="col-xs-1">PRECIO</th>
+              <th class="col-xs-1">COSTO</th>
+              <th class="col-xs-1">OK</th>
+              <th class="col-xs-1"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+            </tr>
+            {% for dato in datos %}
+            <tr filaID="{{ dato.id }}">
+                <td class="col-xs-1" campo="id">{{ dato.id }}</td>
+                <td class="col-xs-1" campo="codigo">{{ dato.codigo }}</td>
+                <td class="col-xs-1" campo="nombre">{{ dato.nombre }}</td>
+                <td class="col-xs-5" campo="descripcion">{{ dato.descripcion }}</td>
+                <td class="col-xs-1" campo="precio">{{ dato.precio }}</td>
+                {% if rol_2 == TRUE %}<td class="col-xs-1" campo="costo">{{ dato.costo }}</td>{% endif %}
+                <td class="col-xs-1" campo="validado">{{ dato.validado }}</td>
+                <td class="col-xs-1">
+                    <span class="glyphicon glyphicon-pencil" aria-hidden="true" filaID="{{ dato.id }}"></span>
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true" filaID="{{ dato.id }}"></span>
+                </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+  </div>
+</div>
+#}
+        
+
+{% endblock %}

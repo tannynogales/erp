@@ -1,0 +1,51 @@
+{% extends "base.twig" %}
+
+{% block title %}VER COMPRA{% endblock title %}
+{% block head %}
+    {{ parent() }}
+    <script type="text/javascript" src="view/vercompra/vercompra.js"></script>
+    <link rel="stylesheet" href="./view/vercompra/vercompra.css" media="all" />
+{% endblock %}
+
+{% block content %}
+<h1>VER COMPRAS</h1>
+
+<div class="table-responsive">         
+    <table class="table table-bordered table-striped table-hover">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>F. COMPRA</th>
+                <th>F. REGISTRO</th>
+                <th>F. ENTREGA</th>
+                <th>BODEGA ID</th>
+                <th>USUARIO ID</th>
+                <th>NETO</th>
+                <th>IVA</th>
+                <th>TOTAL</th>
+                <th class="lastTH"></th>
+            </tr>
+        </thead>
+        <tbody>
+{% for dato in datos %}
+            <tr filaID="{{ dato.id }}">
+                <td campo="id">{{ dato.id }}</td>
+                <td campo="fecha_compra">{{ dato.fecha_compra }}</td>
+                <td campo="fecha_ingreso">{{ dato.fecha_ingreso }}</td>
+                <td campo="fecha_registro">{{ dato.fecha_registro }}</td>
+                <td campo="bodega_id">{{ dato.bodega_id }}</td>
+                <td campo="usuario_id">{{ dato.usuario_id }}</td>
+                <td campo="neto">{{ dato.neto }}</td>
+                <td campo="iva">{{ dato.iva }}</td>
+                <td campo="total">{{ dato.total }}</td>
+                <td>
+                    <span class="glyphicon glyphicon-pencil" aria-hidden="true" filaID="{{ dato.id }}"></span>
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true" filaID="{{ dato.id }}"></span>
+                </td>
+            </tr>
+{% endfor %}
+        </tbody>
+    </table>
+</div>        
+
+{% endblock %}

@@ -1,0 +1,21 @@
+.glyphicon-remove, .glyphicon-pencil
+{
+        opacity: 0.1;
+        cursor: pointer;
+} 
+.glyphicon-remove:hover, .glyphicon-pencil:hover
+{
+        opacity: 0.5;
+}
+.glyphicon-remove:active, .glyphicon-pencil:active
+{
+        opacity: 1;
+} 
+span
+{
+  vertical-align: middle;
+}
+.lastTH
+{
+    width: 50px;
+}

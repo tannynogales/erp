@@ -1,0 +1,61 @@
+{% extends "base.twig" %}
+
+{% block title %}Importar DTE{% endblock title %}
+{% block head %}
+    {{ parent() }}
+    <script type="text/javascript" src="view/importardte/importardte.js?20170306"></script>
+    <link rel="stylesheet" href="./view/importardte/importardte.css?20170306" media="all" />
+{% endblock %}
+
+{% block content %}
+<h1>IMPORTAR DTE</h1>
+
+<form action="index.php?controller=LibreDte&action=importarDte" method="post">
+  <div class="form-group">
+    <label for="TipoDTE">Seleccione DTE para importar</label>
+    <select class="form-control" id="TipoDTE" name="TipoDTE" required>
+        <option value="">Seleccione</option>
+        <option value="33">Factura Electrónica</option>
+        <option value="61">Nota de Crédito</option>
+    </select>     
+  </div>
+    
+  <button type="submit" class="btn btn-primary">Importar</button>
+</form>
+
+<hr/>
+
+<div class="panel panel-default" id="filtro_div">
+    <div class="panel-heading">Resultado ({{ fecha }})</div>
+    <div class="panel-body">
+    {% for dato in respuesta.mensaje %}
+        - {{ dato }}</br>
+    {% endfor %}    
+    </div>
+</div>
+
+<div class="table-responsive">         
+    <table class="table table-bordered table-striped table-hover" id="tabla_ventas">
+        <thead>
+            <tr>
+                <th>ID INTERNO</th>
+                <th>FOLIO</th>
+                <th>PRODUCTO ID</th>
+                <th>PRODUCTO GUARDADO</th>
+            </tr>
+        </thead>
+        <tbody>
+{% for dato in respuesta.detalle %}
+            <tr>
+                <td>{{ dato.id }}</td>
+                <td>{{ dato.folio }}</td>
+                <td>{{ dato.producto_id }}</td>
+                <td>{{ dato.producto_guardado }}</td>
+            </tr>
+{% endfor %}
+        </tbody>
+    </table>
+</div>        
+
+{% endblock %}
+

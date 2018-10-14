@@ -1,0 +1,159 @@
+{% extends "base.twig" %}
+
+{% block title %}Caja{% endblock title %}
+{% block head %}
+    {{ parent() }}
+    <script type="text/javascript" src="view/crear_caja_movimiento/crear_caja_movimiento.js"></script>
+    <link rel="stylesheet" href="./view/crear_caja_movimiento/crear_caja_movimiento.css" media="all" />
+{% endblock %}
+
+{% block content %}
+<h1>INGRESAR MOVIMIENTO DE CAJA</h1>
+
+<div class="{% if state == "true" %}alert alert-success{% elseif state == "false" %}alert alert-danger{% elseif state == "emptyForm" %}alert alert-info{#{% else %}alert alert-warning#}{% endif %}" role="alert">
+    {% if state == "true" or state == "false" %}
+        <span class="{% if state == "true" %}glyphicon glyphicon-ok{% elseif state == "false" %}glyphicon glyphicon-remove{% endif %}" aria-hidden="true"></span>
+    {% endif %}
+    ({{ state }}) - {{ message }}
+</div>
+    
+{% if state == "true" %}
+{# hola 1 #}
+{% else %}    
+    
+<form action="index.php?controller=Caja_movimiento&action=crear" method="post">
+
+<div class="panel panel-default">
+    
+    
+    <div class="panel-heading"><label for="caja_usuario_id">Dueño de la Caja</label></div>
+    <div class="panel-body">
+        <select name="caja_usuario_id" id="caja_usuario_id" class="form-control" required>
+            <option value="" selected>Seleccione Usuario</option>
+            {% for usuario in usuarios %}
+            <option value="{{ usuario.id }}">{{ usuario.nombre }}</option>
+            {% endfor %}        
+        </select>  
+    </div>
+    
+    <div class="panel-heading"><label for="movimiento_fecha">Fecha</label></div>
+    <div class="panel-body">
+        <input type="text" name="movimiento_fecha" id="movimiento_fecha" class="form-control" value="{{ hoy }}" required>  
+    </div>
+    
+    <div class="panel-heading"><label for="movimiento_tipo">Tipo de Movimiento</label></div>
+    <div class="panel-body">
+        <select name="movimiento_tipo" id="movimiento_tipo" class="form-control" required>
+            <option value="1">Entrada</option>
+            <option value="-1">Salida</option>
+        </select>  
+    </div>
+        
+    <div class="panel-heading"><label for="monto">Local de Entrada</label></div>
+    <div class="panel-body">
+        <input type="text" name="monto" id ="monto" class="form-control" value="$ 0" required>
+    </div>        
+        
+</div>
+    
+    
+<div {#class="container"#} id="productos_form">
+  <div {#class="row"#}>
+      <div class="panel panel-default table-responsive">
+        <div class="panel-heading">
+          <h4>
+            Detalle de Productos
+          </h4>
+        </div>
+        <table id="productos_form-tabla" class="table table-bordered table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Código</th>
+                    <th>Nombre</th>
+                    <th>Cantidad</th>
+                    {#<th>Precio</th>
+                    <th>Total</th>#}
+                    <th class="lastTH"></th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+            {#
+            <tfoot>
+                <tr>
+                    <th colspan="4">NETO</th>
+                    <td colspan="2"><input type="text" id="resumen_neto" name="resumen_neto" class="form-control" readonly></td>
+                </tr>
+                <tr>
+                    <th colspan="4">I.V.A.</th>
+                      <td colspan="2"><input type="text" id="resumen_iva" name="resumen_iva" class="form-control" readonly></td>
+                </tr>
+                <tr>
+                      <th colspan="4">TOTAL</th>
+                      <td colspan="2"><input type="text" id="resumen_total" name="resumen_total" class="form-control" readonly></td>
+                </tr>                  
+            </tfoot>
+            #}
+        </table>
+      </div>
+  </div>
+</div>      
+    
+    <button type="submit" class="btn btn-primary">
+      <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Guardar Cambios
+    </button>
+        
+  </form>
+{% endif %}
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="addProductoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">BUSCAR PRODUCTO</h4>
+            </div>
+            
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="rut_busca">Producto:</label>
+                    <input type="text" class="form-control" name="rut_busca" id="producto_busca">
+                </div>
+                
+                <div class="table-responsive">
+                    <table id="table_product_result" class="table table-bordered table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th class="col-xs-2">Código</th><th class="col-xs-8">Nombre</th><th class="col-xs-2">Precio</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>a</td><td>b</td><td>c</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                {#
+                <button type="submit" class="btn btn-default">
+                  <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Buscar Producto
+                </button>
+                #}
+            </div>
+            {#
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+              <button id="delete_form_button" type="button" class="btn btn-primary">ELIMINAR</button>
+            </div>
+            #}
+        </div>
+    </div>
+</div>
+{# #}
+{% endblock %}
+

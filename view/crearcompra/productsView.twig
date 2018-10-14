@@ -1,0 +1,5 @@
+{% for product in products %}
+            <tr prod_id="{{ product.id }}">
+                <td class="col-xs-2">{{ product.codigo }}</td><td class="col-xs-8">{{ product.nombre }}</td><td class="col-xs-2">{{ product.costo }}</td>
+            </tr>
+{% endfor %}

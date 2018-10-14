@@ -1,0 +1,45 @@
+{% extends "base.twig" %}
+
+{% block title %}Index{% endblock title %}
+{% block head %}
+    {{ parent() }}
+    <script type="text/javascript" src="view/vermovimiento/vermovimiento.js"></script>
+    <link rel="stylesheet" href="./view/vermovimiento/vermovimiento.css" media="all" />
+{% endblock %}
+
+{% block content %}
+<h1>VER MOVIMIENTOS</h1>
+
+<div class="table-responsive">         
+    <table class="table table-bordered table-striped table-hover">
+        <thead>
+            <tr> 
+                <th>ID</th>
+                <th>F. MOVIMIENTO</th>
+                <th>F. REGISTRO</th>
+                <th>USUARIO ID</th>
+                <th>BODEGA ENTRA ID</th>
+                <th>BODEGA SALE ID</th>
+                <th class="lastTH"></th>
+            </tr>
+        </thead>
+        <tbody>
+{% for dato in datos %}
+            <tr filaID="{{ dato.id }}">
+                <td campo="id">{{ dato.id }}</td>
+                <td campo="fecha_movimiento">{{ dato.fecha_movimiento }}</td>
+                <td campo="fecha_registro">{{ dato.fecha_registro }}</td>
+                <td campo="usuario_id">{{ dato.usuario_id }}</td>
+                <td campo="bodega_id_entra">{{ dato.bodega_id_entra }}</td>
+                <td campo="bodega_id_sale">{{ dato.bodega_id_sale }}</td>
+                <td>
+                    <span class="glyphicon glyphicon-pencil" aria-hidden="true" filaID="{{ dato.id }}"></span>
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true" filaID="{{ dato.id }}"></span>
+                </td>
+            </tr>
+{% endfor %}
+        </tbody>
+    </table>
+</div>        
+
+{% endblock %}

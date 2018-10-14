@@ -1,0 +1,72 @@
+#table_product_result tbody tr
+{
+    cursor: pointer;
+}
+#table_product_result tbody tr:active
+{
+    color: #c0c0c0;
+}
+
+#productos_form .glyphicon-remove, #productos_form .glyphicon-pencil
+{
+        opacity: 0.1;
+        cursor: pointer;
+} 
+#productos_form .glyphicon-remove:hover, #productos_form .glyphicon-pencil:hover
+{
+        opacity: 0.5;
+}
+#productos_form .glyphicon-remove:active, #productos_form .glyphicon-pencil:active
+{
+        opacity: 1;
+} 
+span
+{
+  /**  vertical-align: middle; **/
+}
+.lastTH
+{
+    width: 25px;
+}
+
+#productos_form tbody input
+{
+    max-width: 100px;
+}
+#productos_form tbody tr td
+{
+    vertical-align: middle;
+}
+
+#productos_form thead tr th:first-child, 
+#productos_form tbody tr td:first-child,
+#productos_form thead tr th:nth-child(5),
+#productos_form thead tr th:nth-child(6),
+#productos_form tbody tr td:nth-child(5),
+#productos_form tbody tr td:nth-child(6),
+#table_product_result thead tr th:nth-child(3),
+#table_product_result tbody tr td:nth-child(3)
+{
+    display: none;
+}
+
+#datepicker, #bodega
+{
+    max-width: 160px;
+}
+
+#productos_form, #bodega option:first-child  
+{
+    display: none;
+    
+}
+
+#productos_form tfoot tr th:first-child
+{
+    text-align: right;
+}
+
+#productos_form tfoot input
+{
+    max-width: 150px;
+}

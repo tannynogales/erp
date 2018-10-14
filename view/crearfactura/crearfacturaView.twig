@@ -1,0 +1,226 @@
+{% extends "base.twig" %}
+
+{% block title %}VENDER{% endblock title %}
+{% block head %}
+    {{ parent() }}
+    <script type="text/javascript" src="view/crearfactura/crearfactura.js"></script>
+    <link rel="stylesheet" href="./view/crearfactura/crearfactura.css?20170304" media="all" />
+{% endblock %}
+
+{% block content %}
+<h1>VENDER</h1>
+{#{ state }#}
+<div class="{% if state == "true" %}alert alert-success{% elseif state == "false" %}alert alert-danger{% elseif state == "emptyForm" %}alert alert-info{#{% else %}alert alert-warning#}{% endif %}" role="alert">
+    {% if state == "true" or state == "false" %}
+        <span class="{% if state == "true" %}glyphicon glyphicon-ok{% elseif state == "false" %}glyphicon glyphicon-remove{% endif %}" aria-hidden="true"></span>
+    {% endif %}
+    ({{ state }}) - {{ message | raw }}
+</div>
+    
+{% if state == "true" %}
+{#if (state == "true")#}
+{% else %}    
+<form action="index.php?controller=factura&action=crear" method="post">
+
+    <div class="panel panel-default">    
+        <div class="panel-heading"><label for="venta_tipo">Tipo de Venta</label></div>
+        <div class="panel-body">
+            <select name="venta_tipo" id="venta_tipo" class="form-control" required>
+            {#<option value="" selected>Seleccione el Tipo de Venta</option>#}
+            {% for venta_tipo in venta_tipos %}
+            <option value="{{ venta_tipo.id }}" {% if venta_tipo.id == 2%}selected{% endif %}>{{ venta_tipo.nombre }}</option>
+            {% endfor %}        
+            </select>  
+        </div>    
+    </div>
+
+    <!-- Button trigger modal -->
+    <div id="button_agregarCliente" class="btn btn-default">
+        Agregar Cliente <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+    </div>
+    <div id="button_quitarCliente" class="btn btn-default">
+        No Agregar Cliente <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+    </div>
+    </br></br>
+    
+    <span id="cliente_check_span">
+        <label for="cliente_check">Agregar Cliente
+            <input type="checkbox" name="cliente_check" id="cliente_check" value="0">
+        </label>
+    </span>
+    
+    <div class="panel panel-default" id="panel_cliente">
+        <div class="panel-heading"><label>Rut</label></div>
+        <div class="panel-body">
+            <input type="text" name="cliente_rut" id="cliente_rut" class="form-control" required> 
+        </div>
+
+        <div class="panel-heading"><label>Nombre / Razón Social</label></div>
+        <div class="panel-body">
+            <input type="text" name="cliente_nombre" id="cliente_nombre" class="form-control" required> 
+        </div>
+
+        <div class="panel-heading"><label>Giro</label></div>
+        <div class="panel-body">
+            <input type="text" name="cliente_giro" id="cliente_giro" class="form-control" required> 
+        </div>
+
+        <div class="panel-heading"><label>Dirección</label></div>
+        <div class="panel-body">
+            <input type="text" name="cliente_direccion" id="cliente_direccion" class="form-control" required> 
+        </div>
+
+        <div class="panel-heading"><label>Comuna</label></div>
+        <div class="panel-body">
+            <input type="text" name="cliente_comuna" id="cliente_comuna" class="form-control" required> 
+        </div>
+
+        <div class="panel-heading"><label>Correo</label></div>
+        <div class="panel-body">
+            <input type="email" name="cliente_correo" id="cliente_correo" class="form-control" required> 
+        </div>
+
+        <div class="panel-heading"><label>Contacto</label></div>
+        <div class="panel-body">
+            <input type="text" name="cliente_contacto" id="cliente_contacto" class="form-control" required> 
+        </div>    
+    </div>    
+
+    <div class="panel panel-default">    
+        <div class="panel-heading"><label for="fecha">Fecha</label></div>
+        <div class="panel-body">
+            <input type="text" name="fecha" id="datepicker" class="form-control" value="{{ hoy }}" required>  
+        </div>
+        <div class="panel-heading"><label for="bodega_salida">Local de Venta:</label></div>
+        <div class="panel-body">
+            <select name="bodega_salida" id="bodega_salida" class="form-control" required>
+            <option value="" selected>Seleccione Local</option>
+            {% for bodega in bodegas %}
+            <option value="{{ bodega.id }}" {% if bodega.id == 2%}selected{% endif %}>{{ bodega.nombre }}</option>
+            {% endfor %}        
+            </select>  
+        </div>
+        <div class="panel-heading"><label>Comentarios:</label></div>
+        <div class="panel-body">
+            <textarea name="comentario" class="form-control" rows="5" id="comment"></textarea>  
+        </div>    
+    </div>
+
+
+    <div {#class="container"#} id="productos_form">
+      <div {#class="row"#}>
+          <div class="panel panel-default table-responsive">
+            <div class="panel-heading">
+              <h4>
+                Detalle de Productos
+              </h4>
+            </div>
+            <table id="productos_form-tabla" class="table table-bordered table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Código</th>
+                        <th>Nombre</th>
+                        <th>Cantidad</th>
+                        <th>Precio</th>
+                        <th>Total</th>
+                        <th class="lastTH"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th colspan="4">NETO</th>
+                        <td colspan="2"><input type="text" id="resumen_neto" name="resumen_neto" class="form-control" readonly></td>
+                    </tr>
+                    <tr>
+                        <th colspan="4">I.V.A.</th>
+                          <td colspan="2"><input type="text" id="resumen_iva" name="resumen_iva" class="form-control" readonly></td>
+                    </tr>
+                    <tr>
+                          <th colspan="4">TOTAL</th>
+                          <td colspan="2"><input type="text" id="resumen_total" name="resumen_total" class="form-control" readonly></td>
+                    </tr>                  
+                </tfoot>
+            </table>
+          </div>
+      </div>
+    </div>
+
+    <!-- Button trigger modal -->
+    <div id="button_addProductoModal" class="btn btn-default" data-toggle="modal"{# data-target="#addProductoModal"#}>
+        Agregar Producto <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+    </div>
+    </br></br>
+
+    <div class="panel panel-default">
+
+        <div class="panel-heading"><label>Efectivo Entregado</label></div>
+        <div class="panel-body">
+            <input type="text" name="efectivo" id="efectivo" class="form-control" required>  
+        </div>  
+        <div class="panel-heading"><label>Vuelto</label></div>
+        <div class="panel-body">
+            <input type="text" name="vuelto" id="vuelto" class="form-control" value="$ 0" required>  
+        </div>          
+
+    </div>      
+      
+    <button type="submit" class="btn btn-primary">
+      <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Guardar Cambios
+    </button>
+        
+</form>
+{% endif %}
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="addProductoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">BUSCAR PRODUCTO</h4>
+            </div>
+            
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="rut_busca">Producto:</label>
+                    <input type="text" class="form-control" name="producto_busca" id="producto_busca">
+                </div>
+                
+                <div class="table-responsive">
+                    <table id="table_product_result" class="table table-bordered table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th class="col-xs-2">Código</th><th class="col-xs-8">Nombre</th><th class="col-xs-2">Precio</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>a</td><td>b</td><td>c</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                {#
+                <button type="submit" class="btn btn-default">
+                  <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Buscar Producto
+                </button>
+                #}
+            </div>
+            {#
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+              <button id="delete_form_button" type="button" class="btn btn-primary">ELIMINAR</button>
+            </div>
+            #}
+        </div>
+    </div>
+</div>
+{# #}
+{% endblock %}
+

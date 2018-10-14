@@ -1,0 +1,140 @@
+{% extends "_template/app/app.twig" %}
+
+{% block title %}Editar Usuario{% endblock title %}
+
+{% block script  %}
+    {{ parent() }}
+    <script type="text/javascript" src="view/usuario/edita/edita.js"></script>
+    <link rel="stylesheet" href="./view/usuario/edita/edita.css" media="all" />
+{% endblock %}
+
+
+
+{% block cuerpo %}
+{# {{ state }}, {{ message }} #}
+{% if state == 2 %}
+<div class="alert alert-danger" role="alert">
+  <strong>Error !</strong> {{ message }}
+</div>
+{% else %}
+    
+    {% if state is null %}    
+    {% elseif state == 1 %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">  
+      <strong>Éxito !</strong> {{ message }}.
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>        
+    {% elseif state == 0 %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">  
+      <strong>Error !</strong> {{ message }}.
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>        
+    {% else %}         
+    <div class="alert alert-warning" role="alert">
+    <strong>Atención!:</strong> Variable "respuesta.estado" sin definir
+    </div> 
+    {% endif %} 
+    
+<h2>Editar Usuario</h2>
+<p>Utilice el formulario para editar los datos del usuario </p>
+<form action="usuario/actualizar"  target="_self" method="post">
+    <div class="form-group row">
+        <label for="input-id" class="col-sm-3 col-form-label">ID *</label>
+        <div class="col-sm-9">
+            <input class="form-control" type="text" value="{{user.id}}" id="input-id" name="input-id" readonly required>
+        </div>
+    </div> 
+        
+    <div class="form-group row">
+        <label for="input-rut" class="col-sm-3 col-form-label">Rut *</label>
+        <div class="col-sm-9">
+            <input class="form-control" type="text" placeholder="Rut" value="{{ user.rut|number_format(0, '.', '.') }}-{{ user.rut_dv }}" id="input-rut" name="input-rut" required>
+        </div>
+    </div>    
+    <div class="form-group row">
+        <label for="input-nombre" class="col-sm-3 col-form-label">Nombre *</label>
+        <div class="col-sm-9">
+            <input class="form-control" type="text" placeholder="Nombre" value="{{user.nombre }}" id="input-nombre" name="input-nombre" required>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="input-apellido" class="col-sm-3 col-form-label">Apellido *</label>
+        <div class="col-sm-9">
+            <input class="form-control" type="text" placeholder="Apellido" value="{{user.apellido }}" id="input-apellido" name="input-apellido" required>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="input-email" class="col-sm-3 col-form-label">Email *</label>
+        <div class="col-sm-9">
+            <input class="form-control" type="email" placeholder="Correo electrónico" value="{{user.email}}" id="input-email" name="input-email" required>
+        </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="input-fono" class="col-sm-3 col-form-label">Teléfono</label>
+      <div class="col-sm-9">
+        <input class="form-control" type="tel" placeholder="Número de Teléfono" value="{{user.telefono}}" id="input-fono" name="input-fono" >
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="input-nac" class="col-sm-3 col-form-label">Fecha&nbsp;de&nbsp;Nacimiento</label>
+      <div class="col-sm-9">
+        <input class="form-control" type="date" value="{{user.fecha_nacimiento}}"  id="input-nac" name="input-nac">
+      </div>
+    </div>
+      
+    <div class="form-group row">
+      <label for="input-password" class="col-sm-3 col-form-label">Contraseña</label>
+      <div class="col-sm-9">
+        <input class="form-control" type="text" value="{{user.password}}"  id="input-password" name="input-password">
+      </div>
+    </div>
+      
+    <div class="form-group row">
+      <label for="input-nac" class="col-sm-3 col-form-label">Estado</label>
+      <div class="col-sm-9">
+        <select class="form-control" id="input-estado" name="input-estado">
+            {% for estado in usuario_estado %}
+                <option value="{{ estado.id }}" {% if estado.id == user.usuario_estado_id %}selected{% endif %}>{{ estado.nombre }}</option>
+            {% endfor %}
+        </select>        
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="input-foto" class="col-sm-3 col-form-label">Foto</label>
+      <div class="col-sm-9">
+          <input type="file" class="form-control-file" id="input-foto" name="input-foto">
+      </div>
+    </div>        
+        
+    <hr>
+
+    <div class="form-group row">
+      <legend class="col-sm-3 col-form-label">Roles</legend>
+      <div class="col-sm-9">
+        {% for rol in roles %}
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="gridRoles{{rol.id}}" name="gridRoles{{rol.id}}" {% if rol.checked == 1 %}checked{% endif %}>
+          <label class="form-check-label" for="gridRoles{{rol.id}}">
+            {{ rol.nombre|capitalize }} (id:{{ rol.id }}, p:{{rol.id_proyecto}})
+          </label>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Actualizar</button>
+
+</form>    
+{% endif %}
+
+
+      
+{% endblock %}

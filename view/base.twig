@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es" xml:lang="es">
+    <head>
+    {% block head %}
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>{% block title %}{% endblock %} - neGes</title>
+        
+        <link id="favicon" rel="shortcut icon" href="img/internet_icon" type="image/png" />
+       
+        <link href="view/style.css" rel="stylesheet" type="text/css" />
+        <script src="view/js.js"></script>
+        
+        <script src="lib/jquery-3.1.0.min.js"></script>
+        <link href="lib/jquery-ui-1.12.0/jquery-ui.css" rel="stylesheet">
+        <script src="lib/jquery-ui-1.12.0/jquery-ui.js"></script>
+
+        <link href="lib/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="lib/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+        
+        
+        <script type="text/javascript" src="lib/library_js.js"></script>
+        <script type="text/javascript" src="lib/jquery.Rut.js"></script>
+        
+        <script type="text/javascript" src="lib/bootbox.min.js"></script>
+        
+        <script type="text/javascript" src="lib/jquery.tmpl.js"></script>
+
+        <script type="text/javascript" src="lib/jquery.price_format.2.0.js"></script>
+        
+        <script src="lib/tinymce/tinymce.min.js"></script>
+        
+        <!--
+        <script src="lib/DataTables/datatables.js"></script>
+        -->
+ 
+    {% endblock %}
+{#
+<!--Start of Zendesk Chat Script-->
+<script type="text/javascript">
+window.$zopim||(function(d,s){var z=$zopim=function(c){z._.push(c)},$=z.s=
+d.createElement(s),e=d.getElementsByTagName(s)[0];z.set=function(o){z.set.
+_.push(o)};z._=[];z.set._=[];$.async=!0;$.setAttribute("charset","utf-8");
+$.src="https://v2.zopim.com/?4Nu7OmcxAho4usWGG1Ddv3goTZByxDqK";z.t=+new Date;$.
+type="text/javascript";e.parentNode.insertBefore($,e)})(document,"script");
+</script>
+<!--End of Zendesk Chat Script-->
+#}
+    </head>
+    <body>
+     
+    {% block navbar %}
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            <a style="cursor: default" class="navbar-brand" >neGes</a>
+            </div> <!-- end div.navbar-header -->
+            
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="{% if get.controller is empty or get.controller == 'index' %} active{% endif %}" ><a href="index.php">Home</a></li>
+                    
+                    <li class="dropdown{% if get.controller == 'factura' %} active{% endif %}" >
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ventas<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="?controller=factura&action=crear">Vender</a></li>
+                            <li><a href="?controller=factura&action=ver">Ver Ventas</a></li>
+                            <li><a href="?controller=factura&action=VerVentaDetalle">Ver Detalle de Ventas</a></li>
+                            <li><a href="?controller=factura&action=editar">Buscar Venta</a></li>
+                            <li><a href="?controller=factura&action=verfoliossinusar">Ver Folios Sin Usar</a></li>
+                            {% if rol_3 == TRUE %} 
+                            <li><a href="?controller=LibreDte&action=importarDte">Importar DTE Emitidos</a></li>
+                            {% endif %}
+                        </ul>
+                    </li>                    
+
+                    
+                    <li class="dropdown{% if get.controller == 'compra' %} active{% endif %}" >
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Compras<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="?controller=compra&action=crear">Comprar</a></li>
+                            <li><a href="?controller=compra&action=ver">Ver Compras</a></li>
+                            <li><a href="?controller=compra&action=editar">Buscar Compra</a></li>
+                        </ul>
+                    </li>                    
+                    
+                    
+                    <li class="dropdown{% if get.controller == 'movimiento' %} active{% endif %}">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Movimientos<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="?controller=movimiento&action=crear">Ingresar Movimiento</a></li>
+                            <li><a href="?controller=movimiento&action=ver">Ver Movimientos</a></li>
+                            <li><a href="?controller=movimiento&action=editar">Buscar Movimiento</a></li>
+                        </ul>
+                    </li>  
+                    
+                    <li class="dropdown{% if get.controller == 'producto' %} active{% endif %}" >
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Producto<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="?controller=producto&action=ver">Ver Producto</a></li>
+                            {% if rol_2 == TRUE or rol_3 == TRUE %}
+                            <li><a href="?controller=producto&action=crear">Crear Productos</a></li>
+                            <li><a href="?controller=producto&action=editar">Buscar Producto</a></li>                            
+                            {% endif %}
+                        </ul>
+                    </li>  
+                    
+                    
+                        
+                    <li class="dropdown{% if get.controller == 'inventario' %} active{% endif %}" >
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Inventario<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="?controller=inventario&action=contar">Contar Productos</a></li>
+                            <li><a href="?controller=inventario&action=verconteo">Ver Conteos</a></li>
+                            <li><a href="?controller=compra&action=editar">Buscar Conteos</a></li>
+                            <li><a href="?controller=inventario&action=verstock">Ver Stock</a></li>
+                        </ul>
+                    </li>
+                    {% if rol_2 == TRUE %} 
+                        
+                    <li class="dropdown{% if get.controller == 'usuarios' %} active{% endif %}">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Configuración<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-header">Usuarios</li>
+                            <li><a href="?controller=usuarios&action=crear">Crear Usuario</a></li>
+                            <li><a href="?controller=usuarios&action=ver">Ver Usuarios</a></li>
+                            <li><a href="?controller=usuarios&action=editar">Buscar Usuario</a></li>
+                            <li><a href="?controller=index&action=bootstrap">Bootstrap</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li class="dropdown-header">Libre DTE</li>
+                            <li><a href="?controller=LibreDte&action=importarDte">Importar DTE Emitidos</a></li>
+                        </ul>
+                    </li>
+                    
+                    <li class="dropdown{% if get.controller == 'Caja_movimiento' %} active{% endif %}">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Caja<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="?controller=Caja_movimiento&action=crear">Ingresar Movimiento</a></li>
+                            <li><a href="?controller=Caja_movimiento&action=ver">Ver Caja</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown{% if get.controller == 'cliente' %} active{% endif %}">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cliente<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="?controller=cliente&action=ver">Ver Clientes</a></li>
+                        </ul>
+                    </li>
+                    
+                    {% endif %}
+                    <li class="logout" id="logout" data-toggle="modal" data-target=".bs-example-modal-sm"><a>salir</a></li>
+                    
+                </ul>
+            </div><!--/.nav-collapse -->
+            
+      </div> <!-- end div.container -->
+    </nav>
+    {% endblock navbar %}
+    
+    {% block jumbotron %}
+    {% endblock jumbotron %}
+
+   <div class="container theme-showcase" role="main">
+       
+        <div id="content">{% block content %}{% endblock %}</div>
+        
+        <div id="footer">
+            {% block footer %}
+                &copy; Copyright 2016 by <a href="http://neges.net/TANNY.NOGALES.pdf">Tanny</a>.
+            {% endblock %}
+        </div>
+        
+    <div/> <!-- end .container theme-showcase -->
+
+<div class="modal bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header"><h4>Logout <i class="fa fa-lock"></i></h4></div>
+            <div class="modal-body"><i class="fa fa-question-circle"></i> ¿Está seguro que sesea salir y cerrar sesión?</div>
+            <div class="modal-footer"><a href="javascript: window.location.href = '?controller=index&action=logout';" class="btn btn-primary btn-block">SALIR</a></div>
+        </div>
+    </div>
+</div>
+    
+    </body>
+</html>

@@ -1,0 +1,138 @@
+{% extends "base.twig" %}
+
+{% block title %}EDITA PRODUCTO{% endblock title %}
+
+{% block head %}
+    {{ parent() }}
+    <script type="text/javascript" src="./view/buscaeditaproducto/buscaeditaproducto.js?20170219"></script>
+    <link rel="stylesheet" href="./view/buscaeditaproducto/buscaeditaproducto.css?20170219" media="all" />
+{% endblock %}
+
+{% block content %}
+    
+<h1>{% if state == "true" %}EDITAR PRODUCTO{% else %}BUSCAR PRODUCTO{% endif %}</h1>
+    
+<div class="{% if (state == "true") or (state == "trueEdit") %}alert alert-success{% elseif (state == "false") or (state == "falseEdit") %}alert alert-danger{% elseif state == "emptyForm" %}alert alert-info{% else %}alert alert-warning{% endif %}" role="alert">
+    <span class="{% if state == "true" %}glyphicon glyphicon-ok{% elseif state == "false" %}glyphicon glyphicon-remove{% endif %}" aria-hidden="true"></span>
+    <strong>({{ state }}) </strong> {{ message }}
+</div>
+
+{# 
+<ul class="nav nav-tabs"> 
+<ul class="nav nav-tabs nav-justified">
+  <li role="presentation" class="active"><a href="#">Home</a></li>
+  <li role="presentation"><a href="#">Profile</a></li>
+  <li role="presentation"><a href="#">Messages</a></li>
+</ul>
+#}    
+
+{% if state == "true" %}
+<form action="index.php?controller=Producto&action=actualizar" method="post">
+    <div class="panel panel-default">
+    
+        <div class="panel-heading"><label>Producto ID</label></div>
+        <div class="panel-body">
+            <input type="text" name="id" class="form-control" value="{{ datos.id }}" readonly required>  
+        </div>
+
+        <div class="panel-heading"><label>Código</label></div>
+        <div class="panel-body">
+            <input type="text" name="codigo" id="codigo" class="form-control" maxlength="15" value="{{ datos.codigo }}" value_old="{{ datos.codigo }}" required>
+            <span id="codigo_advertencia" class="advertencia">Este código ya existe</span>
+        </div>
+
+        <div class="panel-heading"><label>Nombre</label></div>
+        <div class="panel-body">
+            <input type="text" name="nombre" class="form-control" maxlength="250" value="{{ datos.nombre }}" required>  
+        </div>    
+        
+        <div class="panel-heading" style="display: {% if rol_2 == FALSE %}none{% endif %}"><label>Costo</label></div>
+        <div class="panel-body" style="display: {% if rol_2 == FALSE %}none{% endif %}">
+            <input type="text" name="costo" id="costo" class="form-control" value="{{ datos.costo }}" required>  
+        </div>  
+        
+        <div class="panel-heading"><label>Precio Público</label></div>
+        <div class="panel-body">
+            <input type="text" name="precio" id="precio" class="form-control" value="{{ datos.precio }}" required>  
+        </div>   
+
+        <div class="panel-heading"><label>Precio Mayorista</label></div>
+        <div class="panel-body">
+            <input type="text" name="precio_mayorista" id="precio_mayorista" class="form-control" value="{{ datos.precio_mayorista }}" required>  
+        </div>   
+
+        <div class="panel-heading"><label>Precio Web</label></div>
+        <div class="panel-body">
+            <input type="text" name="precio_web" id="precio_web" class="form-control" value="{{ datos.precio_web }}" required>  
+        </div>   
+        
+        <div class="panel-heading"><label>Habilitado</label></div>
+        <div class="panel-body">
+            <label class="radio-inline"><input type="radio" name="habilitado" value="0" {% if datos.habilitado == 0 %} checked{% endif %}>Deshabilitado</label>
+            <label class="radio-inline"><input type="radio" name="habilitado" value="1" {% if datos.habilitado == 1 %} checked{% endif %}>Habilitado</label>
+        </div>  
+
+        <div class="panel-heading"><label>Muestra Precio Web</label></div>
+        <div class="panel-body">
+            <label class="radio-inline"><input type="radio" name="muestra_precio" value="1" {% if datos.muestra_precio == 1 %} checked{% endif %}>Si</label>
+            <label class="radio-inline"><input type="radio" name="muestra_precio" value="0" {% if datos.muestra_precio == 0 %} checked{% endif %}>No</label>
+        </div>  
+
+        <div class="panel-heading"><label>Destacado</label></div>
+        <div class="panel-body">
+            <label class="radio-inline"><input type="radio" name="destacado"  value="1" {% if datos.destacado == 1 %} checked{% endif %}>Si</label>
+            <label class="radio-inline"><input type="radio" name="destacado"  value="0" {% if datos.destacado == 0 %} checked{% endif %}>No</label>
+        </div>  
+
+        <div class="panel-heading"><label>Exento</label></div>
+        <div class="panel-body">
+            <label class="radio-inline"><input type="radio" name="exento"  value="1" {% if datos.exento == 1 %} checked{% endif %}>Si</label>
+            <label class="radio-inline"><input type="radio" name="exento"  value="0" {% if datos.exento == 0 %} checked{% endif %}>No</label>
+        </div>  
+
+        <div style="display: {% if rol_2 == FALSE %}none{% endif %}" class="panel-heading"><label>Aprobado</label></div>
+        <div style="display: {% if rol_2 == FALSE %}none{% endif %}" class="panel-body">
+    
+            {% for producto_validado in producto_validado_all %}
+            <label class="radio-inline"><input type="radio" name="validado"  value="{{producto_validado.id}}" {% if datos.validado == producto_validado.id %} checked{% endif %} required>{{producto_validado.nombre}}</label>    
+            {% endfor %}  
+        </div> 
+
+        
+        <div class="panel-heading" style="display: {% if rol_2 == FALSE %}none{% endif %}"><label>Descripción Corta</label></div>
+        <div class="panel-body" style="display: {% if rol_2 == FALSE %}none{% endif %}">
+            <input type="text" name="descripcion_corta" class="form-control" maxlength="300" value="{{ datos.descripcion_corta }}">  
+        </div>  
+
+        <div class="panel-heading"><label>Descripción Larga</label></div>
+        <div class="panel-body">
+            <textarea name="descripcion_larga" class="form-control" rows="5" id="comment">{{ datos.descripcion }}</textarea>  
+        </div>
+        
+    </div>    
+        
+    <button type="submit" class="btn btn-primary" id="submit_button">
+      <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> Guardar Cambios
+    </button>
+
+</form>
+          
+                
+{% else %}
+
+<form action="index.php?controller=producto&action=editar" method="get">
+    <div class="form-group">
+        <label for="rut_busca">Código del Producto:</label>
+        <input type="text" style="display:none" name="controller" value="producto"  readonly>
+        <input type="text" style="display:none" name="action"     value="editar"    readonly>
+        <input type="text" class="form-control" name="id_busca" id="id_busca">
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+      <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Buscar Venta
+    </button>
+
+</form>
+{% endif %}                
+
+{% endblock %}

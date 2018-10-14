@@ -1,0 +1,11 @@
+
+td[campo="monto"]
+{
+    text-align: right;
+}
+span.moneda
+{
+    float: left;
+}
+
+

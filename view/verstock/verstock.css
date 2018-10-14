@@ -1,0 +1,9 @@
+.glyphicon-remove:hover, .glyphicon-pencil:hover
+{
+        opacity: 0.5;
+}
+
+tbody tr 
+{
+    cursor: pointer;
+}

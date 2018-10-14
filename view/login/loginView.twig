@@ -1,0 +1,30 @@
+{% extends "base.twig" %}
+
+{% block title %}Login{% endblock title %}
+
+{% block head %}
+    {{ parent() }}
+    <link rel="stylesheet" href="view/login/style.css">
+{% endblock %}
+
+{% block navbar %}{% endblock navbar %}
+        
+{% block content %}
+<div class="wrapper">
+    <form class="form-signin" action="index.php?controller=index&action=try2log" method="post">       
+        <h2 class="form-signin-heading">Por Favor Ingrese</h2>
+        <input type="text" class="form-control" name="username" placeholder="CORREO" required="" autofocus="" />
+        <input type="password" class="form-control" name="password" placeholder="CONTRASEÑA" required=""/>      
+        {#
+        <label class="checkbox">
+            <input type="checkbox" value="rememberMe" id="rememberMe" name="rememberMe" checked> Recuérdame
+        </label> 
+        #}
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button> 
+        <span style="margin-top: 20px; color: #9d9d9d">{{message }}</span>
+    </form>
+</div>            
+{% endblock %}
+
+
+

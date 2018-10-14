@@ -1,0 +1,32 @@
+{% extends "base.twig" %}
+
+{% block title %}Index{% endblock title %}
+{% block head %}
+    {{ parent() }}
+    <style type="text/css">
+        .important { color: #336699; }
+    </style>
+{% endblock %}
+{% block content %}
+    <h1>Inicio</h1>
+    <p class="important">
+        {{ title }}
+    </p>
+
+    <h1>Añadir usuario</h1>    
+        <form action="index.php?controller=usuarios&action=crear" method="post" class="col-lg-5">
+            Nombre: <input type="text" name="nombre" class="form-control"/>
+            Apellido: <input type="text" name="apellido" class="form-control"/>
+            Email: <input type="text" name="email" class="form-control"/>
+            Contraseña: <input type="password" name="password" class="form-control"/>
+            <input type="submit" value="enviar" class="btn btn-success"/>
+        </form>
+    
+    <h1>Miembros</h1>
+    <ul>
+        {% for user in users %}
+            <li>({{user.id}}) - {{ user.nombre }}</li>
+        {% endfor %}
+    </ul>
+            
+{% endblock %}

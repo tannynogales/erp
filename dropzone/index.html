@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        
+
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+        
+        <script src="dropzone.js"></script>
+        
+        
+        
+        <script src="js.js"></script>
+        
+        
+    </head>
+    <body>
+        <!--
+        previewsContainer
+        default: null        
+        Defines where to display the file previews – if null the Dropzone 
+        element itself is used. Can be a plain HTMLElement or a CSS selector. 
+        The element should have the dropzone-previews class so the previews are 
+        displayed properly.        
+        -->
+        <div class="dropzone-previews">
+            En esta <strong>div</strong> se inserta cada imagen que se sube.
+        </div>
+        <!--        
+        The uploaded files can be handled just as if there would have 
+        been a html input like this:
+        <form action="" method="post" enctype="multipart/form-data">
+          <input type="file" name="file" />
+        </form>
+        -->
+        
+        <div id="myId">Subir</div>
+        
+<div class="dz-preview dz-file-preview" id="dropzone_template" style="display: none">
+    <div class="dz-details">
+        <div class="dz-filename"><span data-dz-name></span></div>
+        <div class="dz-size" data-dz-size></div>
+        <img data-dz-thumbnail />
+    </div>
+    <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div>
+    <div class="dz-success-mark"><span>✔</span></div>
+    <div class="dz-error-mark"><span>✘</span></div>
+    <div class="dz-error-message"><span data-dz-errormessage></span></div>
+    <!--
+    If you want some specific link to remove a file (instead of the built in 
+    addRemoveLinks config), you can simply insert elements in 
+    the template with the data-dz-remove attribute.
+    <img src="removebutton.png" alt="Click me to remove the file." data-dz-remove />
+    -->
+    <div data-dz-remove></div>
+</div>
+
+
+
+
+    </body>
+</html>

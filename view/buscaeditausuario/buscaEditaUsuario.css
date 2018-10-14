@@ -1,0 +1,10 @@
+.important { color: #336699; }
+
+.edit
+{
+    cursor: pointer;
+}
+th[campo="password"], td[campo="password"]
+{
+    display: none;
+}

@@ -1,0 +1,23 @@
+span
+{
+  vertical-align: middle;
+}
+.lastTH
+{
+    width: 60px;
+}
+.idInterno
+{
+    color: #A4A4A4;
+}
+
+.important { color: #336699; }
+
+.edit
+{
+    cursor: pointer;
+}
+
+th[campo="password"], td[campo="password"]
+{
+}

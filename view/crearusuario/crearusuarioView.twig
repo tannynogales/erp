@@ -1,0 +1,79 @@
+{% extends "base.twig" %}
+
+{% block title %}Index{% endblock title %}
+
+{% block head %}
+    {{ parent() }}
+    <script type="text/javascript" src="./view/crearusuario/crearusuario.js"></script>
+    <link rel="stylesheet" href="./view/crearusuario/crearusuario.css" media="all" />
+{% endblock %}
+
+{% block content %}
+    
+<h1>CREAR USUARIOS</h1>
+
+<div class="{% if state == "true" %}alert alert-success{% elseif state == "false" %}alert alert-danger{% elseif state == "emptyForm" %}alert alert-info{#{% else %}alert alert-warning#}{% endif %}" role="alert">
+    {% if state == "emptyForm" %}
+        ({{ state }}), Completa el siguiente formulario para crear un nuevo Usuario.
+    {% else %}
+        <span class="{% if state == "true" %}glyphicon glyphicon-ok{% elseif state == "false" %}glyphicon glyphicon-remove{% endif %}" aria-hidden="true"></span>
+        <strong>Resultado ({{ state }}):</strong> {{ message }}. {{ state }}
+    {% endif %}
+</div>
+            
+<div class="container">
+    <form class="form-horizontal" action="index.php?controller=usuarios&action=crear" method="post">
+        
+    <div class="form-group">
+        <label class="control-label col-sm-1">RUT</label>
+        <div class="col-sm-11">
+            <input type="text" name="rut" id="rut" class="form-control" placeholder="Rut" value="{{ rut }}" required/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-sm-1" >Nombre</label>
+        <div class="col-sm-11">
+            <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Nombre" value="{{ nombre }}" required/>
+        </div>
+    </div>        
+        
+    <div class="form-group">
+        <label class="control-label col-sm-1">Apellido Paterno</label>
+        <div class="col-sm-11">
+            <input type="text" id="apellido" name="apellido" class="form-control" placeholder="Apellido Paterno" value="{{ apellido }}" required/>
+        </div>
+    </div>
+        
+    <div class="form-group">
+        <label class="control-label col-sm-1">Apellido Materno</label>
+        <div class="col-sm-11">
+            <input type="text" id="aMaterno" name="aMaterno" class="form-control" placeholder="Apellido Materno" value="{{ aPaterno }}" required/>
+        </div>
+    </div> 
+        
+    <div class="form-group">
+        <label class="control-label col-sm-1">Email</label>
+        <div class="col-sm-11">
+            <input type="email" id="email" name="email" class="form-control" placeholder="Email" value="{{ email }}" required/>
+        </div>
+    </div>
+        
+    <div class="form-group">
+        <label class="control-label col-sm-1">Contraseña</label>
+        <div class="col-xs-11">
+            <input type="text" id="password" name="password" class="form-control" placeholder="Contraseña" value="" required/>
+        </div>
+    </div>    
+        
+    <div class="form-group">
+        <div class="col-sm-offset-1 col-sm-11">
+            <button id="form_button" type="submit" class="btn btn-primary">Crear</button>
+        </div>
+    </div>
+  </form>
+</div>
+        
+        
+      
+{% endblock %}

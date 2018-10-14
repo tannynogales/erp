@@ -1,0 +1,144 @@
+{% extends "base.twig" %}
+
+{% block title %}Index{% endblock title %}
+{% block head %}
+    {{ parent() }}
+    <script type="text/javascript" src="view/addusuario/addusuario.js"></script>
+    <style type="text/css">
+        .important { color: #336699; }
+        .edit
+        {
+            cursor: pointer;
+        }
+        th[campo="password"], td[campo="password"]
+        {
+            display: none;
+        }
+    /*
+        [class*="col-"] 
+        {
+          background-color: #eee;
+          background-color: rgba(86,61,124,.15);
+          border: 1px solid #ddd;
+          border: 1px solid rgba(86,61,124,.2);
+        }   
+    */    
+    </style>
+{% endblock %}
+
+{% block content %}
+    <h2>CREAR USUARIOS</h2>
+    {# evaluates to true if the foo variable is null, 
+    false, an empty array, or the empty string #}
+    {% if createResult is not empty %}
+        <p>
+            <div style="padding: 10px;" class="ui-state-highlight ui-corner-all">
+                <span class="ui-icon-info"></span>
+                <strong>Resultado:</strong> {{ createResult }}.
+            </div>            
+        </p>
+    {% else %}
+        <p>
+            Completa el siguiente formulario para crear un nuevo Usuario.
+        </p>
+    {% endif %}
+              
+    {#              
+        <div style="padding: 10px;" class="ui-state-error ui-corner-all">
+            <span class="ui-icon ui-icon-alert"></span>
+            <strong>Alert:</strong> Sample ui-state-error style.
+	</div>
+    #}              
+<div class="container">
+    <form class="form-horizontal" action="index.php?controller=usuarios&action=crear" method="post">
+
+    <div class="form-group">
+        <label class="control-label col-sm-1">ID</label>
+        <div class="col-sm-11">
+            <input type="text" name="id" id="id" class="form-control" placeholder="id" value="{{ id }}" required disabled/>
+        </div>
+    </div>
+        
+    <div class="form-group">
+        <label class="control-label col-sm-1">RUT</label>
+        <div class="col-sm-11">
+            <input type="text" name="rut" id="rut" class="form-control" placeholder="Rut" value="{{ rut }}" required/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-sm-1" >Nombre</label>
+        <div class="col-sm-11">
+            <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Nombre" value="{{ nombre }}" required/>
+        </div>
+    </div>        
+        
+    <div class="form-group">
+        <label class="control-label col-sm-1">Apellido</label>
+        <div class="col-sm-11">
+            <input type="text" id="apellido" name="apellido" class="form-control" placeholder="Apellido" value="{{ apellido }}" required/>
+        </div>
+    </div>      
+
+    <div class="form-group">
+        <label class="control-label col-sm-1">Email</label>
+        <div class="col-sm-11">
+            <input type="email" id="email" name="email" class="form-control" placeholder="Email" value="{{ email }}" required/>
+        </div>
+    </div>
+        
+    <div class="form-group">
+        <label class="control-label col-sm-1">Contraseña</label>
+        <div class="col-xs-11">
+            <input type="text" id="password" name="password" class="form-control" placeholder="Contraseña" value="" required/>
+        </div>
+    </div>    
+
+    <div class="form-group">
+        <label class="control-label col-sm-1">Acción</label>
+        <div class="col-xs-11">
+            <input type="text" id="accion" name="accion" class="form-control" placeholder="Acción" value="Crear" required disabled/>
+        </div>
+    </div>  
+        
+    <div class="form-group">
+        <div class="col-sm-offset-1 col-sm-11">
+            <button id="form_button" type="submit" class="btn btn-primary">Crear</button>
+        </div>
+    </div>
+  </form>
+</div>
+        
+        
+<h3>LISTA DE USUARIOS</h3>
+    
+<div class="table-responsive">         
+    <table class="table table-bordered table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Rut</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Email</th>
+                <th>Opciones</th>
+                <th campo="password">Contraseña</th>
+            </tr>
+        </thead>
+        <tbody>
+{% for user in users %}
+            <tr userID="{{ user.id }}">
+                <td campo="rut">{{ user.rut }}</td>
+                <td campo="nombre">{{ user.nombre }}</td>
+                <td campo="aPaterno">{{ user.aPaterno }}</td>
+                <td campo="email">{{ user.email }}</td>
+                <td campo="password">{{ user.password }}</td>
+                <td>
+                    <a href="?controller=usuarios&action=eliminar&rut={{ user.rut }}">Eliminar</a> || 
+                    <span userID="{{ user.id }}" class="edit">Editar</span>
+                </td>
+            </tr>
+{% endfor %}
+        </tbody>
+    </table>
+</div>        
+{% endblock %}

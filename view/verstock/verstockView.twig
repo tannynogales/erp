@@ -1,0 +1,38 @@
+{% extends "base.twig" %}
+
+{% block title %}VER STOCK{% endblock title %}
+{% block head %}
+    {{ parent() }}
+    <script type="text/javascript" src="view/verstock/verstock.js"></script>
+    <link rel="stylesheet" href="./view/verstock/verstock.css" media="all" />
+{% endblock %}
+
+{% block content %}
+<h1>VER STOCK</h1>
+
+<div class="table-responsive">         
+    <table class="table table-bordered table-striped table-hover">
+        <thead>
+            <tr>
+                <th>CÓDIGO</th>
+                <th>NOMBRE</th>
+                <th>BODEGA</th>
+                <th>CANTIDAD</th>
+                <th>ÚLTIMO CONTEO</th>
+            </tr>
+        </thead>
+        <tbody>
+{% for dato in datos %}
+            <tr conteo_fecha="{{ dato.conteo_fecha }}" bodega_id="{{ dato.bodega_id }}" producto_id="{{ dato.producto_id }}">
+                <td campo="id">{{ dato.producto_codigo }}</td>
+                <td campo="rut">{{ dato.producto_nombre }}</td>
+                <td campo="nombre">{{ dato.bodega_nombre }}</td>
+                <td campo="aPaterno">{{ dato.cantidad }}</td>
+                <td campo="email">{{ dato.conteo_fecha }} ({{ dato.conteo_cantidad }})</td>
+            </tr>
+{% endfor %}
+        </tbody>
+    </table>
+</div>        
+
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "base.twig" %}
+
+{% block title %}Ver Caja{% endblock title %}
+{% block head %}
+    {{ parent() }}
+    <script type="text/javascript" src="view/ver_caja_movimiento/ver_caja_movimiento.js"></script>
+    <link rel="stylesheet" href="./view/ver_caja_movimiento/ver_caja_movimiento.css" media="all" />
+{% endblock %}
+
+{% block content %}
+<h1>VER CAJA</h1>
+
+<div class="table-responsive">         
+    <table class="table table-bordered table-striped table-hover">
+        <thead>
+            <tr> 
+                <th>id</th>
+                <th>CAJA</th>
+                <th>MONTO</th>
+                <th class="lastTH"></th>
+            </tr>
+        </thead>
+        <tbody>
+{% for dato in datos %}
+            <tr filaID="{{ dato.caja_usuario_id }}">
+                <td campo="id">{{ dato.caja_usuario_id }}</td>
+                <td campo="caja_usuario_nombre">{{ dato.caja_usuario_nombre}}</td>
+                <td campo="monto_suma"><span class="moneda">$</span>{{ dato.monto_suma }}</td>
+                <td campo="opciones">
+                    <span class="glyphicon glyphicon-remove-circle" aria-hidden="true" filaID="{{ dato.caja_usuario_id }}"></span>
+                    <a href="index.php?controller=Caja_movimiento&action=detalle&usuario_id={{ dato.caja_usuario_id }}">
+                        <span class="glyphicon glyphicon glyphicon-zoom-in" aria-hidden="true"></span>
+                    </a>
+                </td>
+            </tr>
+{% endfor %}
+        </tbody>
+    </table>
+</div>        
+
+{% endblock %}

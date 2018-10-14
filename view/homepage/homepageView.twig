@@ -1,0 +1,74 @@
+{% extends "base.twig" %}
+
+{% block title %}Index{% endblock title %}
+{% block head %}
+    {{ parent() }}
+    <style type="text/css">
+        .important { color: #336699; }
+    </style>
+    <script type="text/javascript" src="view/homepage/homepage.js"></script>
+{% endblock %}
+{% block content %}
+    {#
+    <p class="important">
+        {{ title }}
+    </p>
+    #}  
+<br>    
+<div class="jumbotron">
+    <h1>Bienvenido {{usuario_nombre}} a neGes ERP</h1>
+    <p>Aquí podrá administrar ventas, compras, movimientos de mercaderías y gestionar el inventario.</p>
+</div>
+    
+<div class="panel panel-info">
+    <div class="panel-heading">Perfiles</div>
+    <ul class="list-group">
+        {% for rol in roles %}
+        <li class="list-group-item">{{ rol.rol_nombre}}</li>        
+        {% endfor %}
+    </ul> 
+</div>
+
+<div class="panel panel-info">
+    <!-- Default panel contents -->
+    <div class="panel-heading">Indicadores Económicos</div>
+    {#
+    <div class="panel-body">
+        <p>...</p>
+    </div>
+    #}
+    <!-- List group -->
+    <ul class="list-group">
+        <li class="list-group-item">
+        UF: <span id="uf"></span>
+        </li>
+    </ul>
+    <ul class="list-group">
+        <li class="list-group-item">
+        Dolar: <span id="dolar"></span>
+        </li>
+    </ul>
+</div>
+    
+    
+{% if rol_2 == TRUE %}    
+<div class="panel panel-info">
+    <!-- Default panel contents -->
+    <div class="panel-heading">Ventas (Neto)</div>
+    <!-- List group -->
+    
+    {% for venta in ventas %}
+        <ul class="list-group">
+            <li class="list-group-item">
+            {{ venta.ano }} - {{ venta.mes }}: {{ venta.venta_neto }}<br>
+            </li>
+        </ul>
+    {% endfor %}  
+</div>  
+{% endif %}    
+    
+{% for email in emails %}
+{{ email.fromaddress }} - {{ email.subject }}<br>
+{% endfor %}
+
+{% endblock %}

@@ -1,0 +1,66 @@
+{# Receptor: {{ venta.RUTRecep }} #}
+
+{% if Contribuyente != false %}
+
+<div class="panel panel-info">
+    <div class="panel-heading">Cliente</div>
+    <ul class="list-group">
+        <li class="list-group-item"><strong>Razón&nbsp;Social:</strong> {{Contribuyente.razon_social}}</li>
+        <li class="list-group-item"><strong>RUT:</strong> {{Contribuyente.rut}}</li>
+        <li class="list-group-item"><strong>Correo:</strong> {{Contribuyente.correo}}, <strong>Fono: </strong>{{Contribuyente.contacto}}</li>
+        <li class="list-group-item"><strong>Dorección:</strong> {{Contribuyente.direccion}}, {{Contribuyente.comuna}}</li>
+    </ul> 
+</div>
+        
+{% endif %}
+
+
+
+<div class="panel table-responsive panel-info">    
+    <div class="panel-heading">Detalle de la Venta</div>
+    <table class="table table-bordered table-striped table-hover">
+        <thead>
+            <tr>
+                <th>CODIO</th>
+                <th>NOMBRE</th>
+                <th>CANTIDAD</th>
+                <th>PRECIO&nbsp;UNIDAD</th>
+                <th>TOTAL</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for producto in productos %}
+            <tr>
+                <td class="col-xs-2">{{ producto.producto_codigo }}</td>
+                <td class="col-xs-4">{{ producto.producto_nombre }}</td>
+                <td class="col-xs-2" style="text-align: right;">{{ producto.cantidad}}</td>
+                <td class="col-xs-2" style="text-align: right;"><span style="float: left;">$</span>{{ producto.precio_venta}}</td>
+                <td class="col-xs-2" style="text-align: right;"><span style="float: left;">$</span>{{ producto.total}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr style="text-align: right;">
+                <td class="col-xs-8" colspan="3"></td>
+                <td class="col-xs-2">IVA</td>
+                <td class="col-xs-2"><span style="float: left;">$</span>{{ IVA }}</td>
+            </tr>            
+            <tr style="text-align: right;">
+                <td class="col-xs-8" colspan="3"></td>
+                <td class="col-xs-2">TOTAL</td>
+                <td class="col-xs-2"><span style="float: left;">$</span>{{ MntTotal }}</td>
+            </tr>  
+        </tfoot>
+        
+    </table>
+    
+</div>          
+                
+{% if venta.comentario != "" %}
+
+<div class="panel panel-info">
+    <div class="panel-heading">Comentarios</div>
+    <div class="panel-body">{{ venta.comentario | raw }}</div
+</div>
+        
+{% endif %}

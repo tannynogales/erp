@@ -1,0 +1,53 @@
+.glyphicon-remove, .glyphicon-pencil
+{
+        opacity: 0.1;
+        cursor: pointer;
+} 
+.glyphicon-remove:hover, .glyphicon-pencil:hover
+{
+        opacity: 0.5;
+}
+.glyphicon-remove:active, .glyphicon-pencil:active
+{
+        opacity: 1;
+} 
+span
+{
+  vertical-align: middle;
+}
+.lastTH
+{
+    width: 50px;
+}
+
+
+/*
+Tabla Cabecera Fija
+*/
+
+.table-fixed thead {
+  width: 97%;
+}
+.table-fixed tbody {
+  height: 230px;
+  overflow-y: auto;
+  width: 100%;
+}
+.table-fixed thead, .table-fixed tbody, .table-fixed tr, .table-fixed td, .table-fixed th {
+  display: block;
+}
+.table-fixed tbody td, .table-fixed thead > tr> th {
+  float: left;
+  border-bottom-width: 0;
+}
+
+span.moneda
+{
+    float: left;
+}
+
+
+td[campo="precio_web"], td[campo="precio_mayorista"], td[campo="precio"], td[campo="costo"]
+{
+    text-align: right;
+}

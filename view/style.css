@@ -1,0 +1,41 @@
+@charset "utf-8";
+/* CSS Document */
+/* Move down content because we have a fixed navbar that is 50px tall */
+
+body 
+{
+  padding-top: 50px;
+  padding-bottom: 20px;
+}
+
+#footer
+{
+    color: #A4A4A4;
+    margin-top: 50px;
+
+}
+
+/*
+    Aplica para el Modal Nativo de bootstrap
+ */
+.modal-header 
+{
+    background-color: #337ab7;
+    color: #fff;
+    font-size: 16px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;    
+ }
+ 
+.panel label
+{
+    text-transform: uppercase;
+}
+.logout
+{
+    float: right;
+    position: fixed;
+    color: #003eff;
+    text-transform: uppercase;
+    cursor: pointer;
+}

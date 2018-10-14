@@ -1,0 +1,183 @@
+{% extends "_template/app/app.twig" %}
+
+{% block title %}Usuarios{% endblock title %}
+
+{% block script  %}
+    {{ parent() }}
+    <script type="text/javascript" src="view/usuario/admin/admin.js"></script>
+    <link rel="stylesheet" href="./view/usuario/admin/admin.css" media="all" />
+{% endblock %}
+
+
+
+{% block cuerpo %}
+{#    
+{% if result.state == 1 %}
+<div class="alert alert-success alert-dismissible fade show" role="alert">  
+  <strong>Éxito !</strong> {{ result.message }}.
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{% elseif result.state == 0 %}    
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+  <strong>Error!</strong> {{ result.message }}.
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{% else %} 
+#}
+{% if result.state == 2 %}
+<div class="card">
+    <div style="cursor: pointer;" class="card-header border-primary text-white bg-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+        Crear Usuario <i class="fas fa-plus-circle"></i>
+    </div>
+    <div class="card-body text-dark collapse" id="collapseExample">
+    <form action="usuario/crear"  target="_self" method="post" enctype="multipart/form-data">
+        <div class="form-group row">
+            <label for="input-rut" class="col-sm-3 col-form-label">Rut *</label>
+            <div class="col-sm-9">
+                <input class="form-control" type="text" placeholder="Rut" id="input-rut" name="input-rut" required>
+            </div>
+        </div>    
+        <div class="form-group row">
+            <label for="input-nombre" class="col-sm-3 col-form-label">Nombre *</label>
+            <div class="col-sm-9">
+                <input class="form-control" type="text" placeholder="Nombre" id="input-nombre" name="input-nombre" required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="input-apellido" class="col-sm-3 col-form-label">Apellido *</label>
+            <div class="col-sm-9">
+                <input class="form-control" type="text" placeholder="Apellido" id="input-apellido" name="input-apellido" required>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="input-email" class="col-sm-3 col-form-label">Email *</label>
+            <div class="col-sm-9">
+                <input class="form-control" type="email" placeholder="Correo electrónico" value="correo_de@ejemplo.cl" id="input-email" name="input-email" required>
+            </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="input-fono" class="col-sm-3 col-form-label">Teléfono</label>
+          <div class="col-sm-9">
+            <input class="form-control" type="tel" placeholder="Número de Teléfono" id="input-fono" name="input-fono" >
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="input-nac" class="col-sm-3 col-form-label">Fecha&nbsp;de&nbsp;Nacimiento</label>
+          <div class="col-sm-9">
+            <input class="form-control" type="date" value="2011-08-19" id="input-nac" name="input-nac">
+          </div>
+        </div>
+        <button type="reset" class="btn btn-light">Limpiar</button>
+        <button type="submit" class="btn btn-primary">Grabar</button>
+
+        </form>    
+    </div>
+</div>
+{% endif %} 
+
+<hr>    
+<h2>VER USUARIOS</h2>
+<p>Se encontraron {{ users|length }} usuarios.</p>
+{% if paginacion %}
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-end">
+    <li class="page-item disabled">
+      <a class="page-link" href="#" tabindex="-1">Previous</a>
+    </li>
+    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item">
+      <a class="page-link" href="#">Next</a>
+    </li>
+  </ul>
+</nav> 
+{% endif %}
+<div class="table-responsive">         
+    <table class="table table-bordered table-striped table-hover">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Rut</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Email</th>
+                <th>Edificio</th>
+                <th>Depto</th>
+                <th campo="password">Contraseña</th>
+                <th class="lastTH"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr userID="{{ user.id }}">
+                <td campo="id">{{ user.id }}</td>
+                <td campo="rut">{{ user.rut|number_format(0, '.', '.') }}-{{ user.rut_dv }}</td>
+                <td campo="nombre">{{ user.nombre }}</td>
+                <td campo="aPaterno">{{ user.apellido }}</td>
+                <td campo="email">{{ user.email }}</td>
+                <td campo="email">JardRec</td>
+                <td campo="email">1306</td>
+                <td campo="password">{{ user.password }}</td>
+                <td>
+                    <span class="fas fa-minus-circle option_delete" aria-hidden="true" userID="{{ user.id }}"></span>
+                    <span class="fas fa-pen-square option_edit" aria-hidden="true" userID="{{ user.id }}"></span>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+        
+{% if paginacion %}
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-end">
+    <li class="page-item disabled">
+      <a class="page-link" href="#" tabindex="-1">Previous</a>
+    </li>
+    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item">
+      <a class="page-link" href="#">Next</a>
+    </li>
+  </ul>
+</nav> 
+{% endif %}        
+
+{#
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">ELIMINAR USUARIO</h4>
+      </div>
+      <div class="modal-body">
+          <p>¿Esta <strong>seguro</strong> de querer eliminar al usuario "<span id="elimina_nombre">NOMBRE</span>", Rut: <span id="elimina_rut">xx.xxx.xxx-x</span>?</p>
+          <p class="idInterno">(ID Interno: <span id="elimina_id">NOMBRE</span>)</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button id="delete_form_button" type="button" class="btn btn-primary">ELIMINAR</button>
+      </div>
+    </div>
+  </div>
+</div>
+#}
+{% endblock %}
