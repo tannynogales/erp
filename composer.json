@@ -1,0 +1,15 @@
+{
+    "name": "vendor/php-project1",
+    "description": "Description of project PhpProject1.",
+    "authors": [
+        {
+            "name": "tanny",
+            "email": "your@email.here"
+        }
+    ],
+    "require": {
+        "sasco/libredte-sdk-php": "*",
+        "twig/twig": "*",
+        "swiftmailer/swiftmailer": "*"
+    }
+}
