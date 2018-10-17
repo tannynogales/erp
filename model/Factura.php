@@ -209,31 +209,25 @@ class Factura extends MyPDO{
     {
         $sql = "
         SELECT
-        *
-        FROM
-        (
-            SELECT
-		folio as 'id', 
-                DATE_FORMAT(FchEmis, '%d/%m/%Y') AS 'fecha_venta',
-                FchEmis AS 'fecha_venta_mysql', 
-                LEFT (RUTRecep, LENGTH(RUTRecep)-1) as 'cliente',  
-                'Recoleta' as 'bodega',
-                DATE_FORMAT(FechRegistro, '%d/%m/%Y') as 'fecha_registro',
-                CdgVendedor as 'usuario',
-                MntNeto as 'neto', 
-                IVA as 'iva', 
-                MntTotal as 'total', 
-                validado as 'validado',
-                IF(tipoDTE = 33, 'Factura E.', tipoDTE) as 'venta_tipo',
-                tipoDTE as 'venta_tipo_id',
-                'dte' as 'fuente',
-                estado as 'estado'
-            FROM 
-                dte 
-            WHERE tipoDTE = 61
-        ) AS ventas
-        -- WHERE ventas.id = 1 or ventas.id = 2
-        ORDER BY fecha_venta_mysql DESC, id DESC";
+            folio as 'id', 
+            DATE_FORMAT(FchEmis, '%d/%m/%Y') AS 'fecha_venta',
+            FchEmis AS 'fecha_venta_mysql', 
+            LEFT (RUTRecep, LENGTH(RUTRecep)-1) as 'cliente',  
+            'Recoleta' as 'bodega',
+            DATE_FORMAT(FechRegistro, '%d/%m/%Y') as 'fecha_registro',
+            CdgVendedor as 'usuario',
+            FolioRef as 'FolioRef',
+            MntNeto as 'neto', 
+            IVA as 'iva', 
+            MntTotal as 'total', 
+            validado as 'validado',
+            tipoDTE as 'venta_tipo_id',
+            'dte' as 'fuente',
+            estado as 'estado'
+        FROM 
+            dte 
+        WHERE tipoDTE = 61
+        ORDER BY FchEmis DESC, id DESC";
         //exit($sql);
         $response = $this ->consult($sql);
         return $response;

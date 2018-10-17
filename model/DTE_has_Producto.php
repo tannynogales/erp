@@ -70,7 +70,7 @@ class DTE_has_Producto extends MyPDO{
             dte_has_producto.precio as 'precio_venta',
             dte_has_producto.precio*dte_has_producto.cantidad as 'total'
         FROM 
-                dte_has_producto
+            dte_has_producto
         INNER JOIN producto
         ON producto.id=dte_has_producto.producto_id
         INNER JOIN dte 

@@ -14,11 +14,39 @@ class DTE extends MyPDO{
             $tipoDTE, 
             $validado,
             $estado,
-            $tiene_productos;
-    
+            $tiene_productos,
+            $TpoDocRef,
+            $FolioRef,
+            $comentario;
+                        
+                        
     public function __construct() 
     {
         
+    }
+    
+    function getTpoDocRef() {
+        return $this->TpoDocRef;
+    }
+
+    function getFolioRef() {
+        return $this->FolioRef;
+    }
+
+    function getComentario() {
+        return $this->comentario;
+    }
+
+    function setTpoDocRef($TpoDocRef) {
+        $this->TpoDocRef = $TpoDocRef;
+    }
+
+    function setFolioRef($FolioRef) {
+        $this->FolioRef = $FolioRef;
+    }
+
+    function setComentario($comentario) {
+        $this->comentario = $comentario;
     }
     
     function getId() {
@@ -143,7 +171,7 @@ class DTE extends MyPDO{
     
     public function save()
     {
-        $sql="INSERT INTO $this->table (folio, FchEmis, RUTRecep, MntNeto, IVA, MntTotal, CdgVendedor, FechRegistro, tipoDTE, validado, estado)
+        $sql="INSERT INTO $this->table (folio, FchEmis, RUTRecep, MntNeto, IVA, MntTotal, CdgVendedor, FechRegistro, tipoDTE, validado, estado, comentario, TpoDocRef, FolioRef)
                 VALUES(
                        '".$this->folio."',
                        '".$this->FchEmis."',
@@ -155,7 +183,10 @@ class DTE extends MyPDO{
                        '".$this->FechRegistro."',
                        '".$this->tipoDTE."',
                        '".$this->validado."',
-                       '".$this->estado."');";
+                       '".$this->estado."',
+                       '".$this->comentario."',
+                       '".$this->TpoDocRef."',    
+                       '".$this->FolioRef."');";
         //echo $sql;
         $response = $this ->consult($sql);
 	if ($response)

@@ -455,7 +455,21 @@ class FacturaController extends BasisController
         
         if ($_POST["fuente"] == "dte")
         {
-            $venta["comentario"] = "Factura importada desde libreDTE";
+            
+            if($venta["tipodte"]==33)
+            {
+                if($venta["comentario"]=="")
+                $venta["comentario"] = "Factura importada desde libreDTE";
+                else
+                    $venta["comentario"] = $venta["comentario"];
+            }elseif($venta["tipodte"]==61)
+            {
+                $venta["comentario"] = $venta["comentario"]."<br>"."Factura anulada: ".$venta["folioref"];
+            }
+            else
+            {
+                $venta["comentario"] = "Tipo de DTE no válido";
+            }    
         }
         else
         {
@@ -605,7 +619,7 @@ class FacturaController extends BasisController
 
         $this -> view
         ( 
-            "verFactura", // Plantilla 
+            "vernotacredito", // Plantilla 
             [
                 "datos" => $ventas, 
                 "titulo" => "Notas de Crédito"

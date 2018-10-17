@@ -1,0 +1,31 @@
+.glyphicon-remove, .glyphicon-pencil, .glyphicon-eye-open, .glyphicon-ok[validado="0"]
+{
+        opacity: 0.1;
+        cursor: pointer;
+} 
+.glyphicon-remove:hover, .glyphicon-pencil:hover, .glyphicon-eye-open:hover, .glyphicon-ok[validado="0"]:hover
+{
+        opacity: 0.5;
+}
+.glyphicon-remove:active, .glyphicon-pencil:active, .glyphicon-eye-open:active, .glyphicon-ok[validado="0"]:active
+{
+        opacity: 1;
+} 
+span
+{
+  vertical-align: middle;
+}
+.lastTH
+{
+    width: 85px;
+}
+#filtro_div input
+{
+    width: 120px;
+    float: left;
+}
+
+#filtro_div input, #filtro_div button 
+{
+    margin-left: 10px;
+}

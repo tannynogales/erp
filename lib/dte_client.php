@@ -26,7 +26,7 @@ Class dte_client
         // Crear Cliente
         $this->setClient(new \sasco\LibreDTE\SDK\LibreDTE($hash, $url));
         
-        //var_dump(   $this->getClient()   );
+        //var_dump(   $this->getClient()   ); exit();
     }
     
     function getContribuyente($contribuyente)
@@ -155,7 +155,7 @@ Class dte_client
             ];            
             $xml = base64_decode($estado['body']);
             $xml = simplexml_load_string($xml);
-            print_r($xml); exit();
+            //print_r($xml); exit();
             $dte = 
             [
                 "Folio" => (int) $xml->SetDTE->DTE->Documento->Encabezado->IdDoc->Folio,
@@ -165,9 +165,30 @@ Class dte_client
                 "IVA"=> (int) $xml->SetDTE->DTE->Documento->Encabezado->Totales->IVA,
                 "MntTotal"=> (int) $xml->SetDTE->DTE->Documento->Encabezado->Totales->MntTotal,
                 "CdgVendedor" => (string) $xml->SetDTE->DTE->Documento->Encabezado->Emisor->CdgVendedor,
-                "estado" => 3    
+                "estado" => 3
             ];
-
+            if($tipo_dte==61)
+            {
+                //echo "61";
+                $dte["TpoDocRef"]  = (int) $xml->SetDTE->DTE->Documento->Referencia->TpoDocRef;
+                $dte["FolioRef"]   = (int) $xml->SetDTE->DTE->Documento->Referencia->FolioRef;
+                $dte["comentario"] = (string) $xml->SetDTE->DTE->Documento->Referencia->RazonRef;
+            }
+            elseif($tipo_dte==33)
+            {
+                //echo "33";
+                $dte["TpoDocRef"]  = NULL;
+                $dte["FolioRef"]   = NULL;
+                $dte["comentario"] = "Factura Electrónica importada desde LibreDTE";                
+            }
+            else
+            {
+                $dte["TpoDocRef"]  = NULL;
+                $dte["FolioRef"]   = NULL;
+                $dte["comentario"] = "Tipo de DTE no válido";                  
+                print_r($dte); exit();
+            }
+            //print_r($dte); exit();
             $dte_detalle = [];
             foreach ($xml->SetDTE->DTE->Documento->Detalle as $clave => $valor) 
             {

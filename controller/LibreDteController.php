@@ -26,7 +26,7 @@ class LibreDteController extends BasisController
     function GetDteAction()
     {
         $dte_client = new dte_client();
-        $dte_responce = $dte_client->getDTEbyFolio(877);
+        $dte_responce = $dte_client->getDTEbyFolio(1368, 76884800, 33);
         print_r($dte_responce);
     }    
     function importarDteAction()
@@ -57,7 +57,7 @@ class LibreDteController extends BasisController
             {
                 $folio_desde = 41;
                 $dte_nombre = "Notas de Crédito";
-                
+                //echo "61"; exit();
             }else
             {
                 echo "Tipo de DTE no válido"; exit();
@@ -85,7 +85,7 @@ class LibreDteController extends BasisController
 
             $dte_responce = $dte_client->getDTEbyFolio($folio, $Contribuyente, $tipoDTE);
 
-            var_dump($dte_responce); exit();
+            //var_dump($dte_responce); exit();
 
             //$dte_responce_dte = $dte_responce["dte"];
             //print_r($dte_responce_dte); exit();
@@ -109,6 +109,9 @@ class LibreDteController extends BasisController
                 $dte->setTipoDTE(61);
                 $dte->setValidado(0); // 0-> No validado, 1-> Validado
                 $dte->setEstado( $dte_responce["dte"]["estado"] ); 
+                $dte->setComentario($dte_responce["dte"]["comentario"]);
+                $dte->setTpoDocRef($dte_responce["dte"]["TpoDocRef"]);
+                $dte->setFolioRef($dte_responce["dte"]["FolioRef"]);
                 //echo "holaa"; exit();
                 $dte_id = $dte->save();
                 //var_dump($dte_id); exit();
