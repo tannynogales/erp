@@ -106,7 +106,7 @@ class LibreDteController extends BasisController
                 $dte->setMntTotal($dte_responce["dte"]["MntTotal"]);
                 $dte->setCdgVendedor($dte_responce["dte"]["CdgVendedor"]);
                 $dte->setFechRegistro(date("Y/m/d"));
-                $dte->setTipoDTE(61);
+                $dte->setTipoDTE($tipoDTE);
                 $dte->setValidado(0); // 0-> No validado, 1-> Validado
                 $dte->setEstado( $dte_responce["dte"]["estado"] ); 
                 $dte->setComentario($dte_responce["dte"]["comentario"]);
