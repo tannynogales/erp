@@ -96,7 +96,7 @@
             <select name="bodega_salida" id="bodega_salida" class="form-control" required>
             <option value="" selected>Seleccione Local</option>
             {% for bodega in bodegas %}
-            <option value="{{ bodega.id }}" {% if bodega.id == 2%}selected{% endif %}>{{ bodega.nombre }}</option>
+            <option value="{{ bodega.id }}" {% if bodega.id == 1%}selected{% endif %}>{{ bodega.nombre }}</option>
             {% endfor %}        
             </select>  
         </div>
