@@ -36,8 +36,13 @@ class BasisController{
          * Segundo parámetro: array('cache' => 'cache')
          * para guardar configuración en cache
          */
-        $twig = new Twig_Environment($loader);  
-
+        //$twig = new Twig_Environment($loader);  
+        
+        $twig = new Twig_Environment($loader, array(
+            'debug' => true,
+            // ...
+        ));
+        $twig->addExtension(new Twig_Extension_Debug());
         //load template file  
         try 
         {
@@ -95,8 +100,12 @@ class BasisController{
          * Segundo parámetro: array('cache' => 'cache')
          * para guardar configuración en cache
          */
-        $twig = new Twig_Environment($loader);  
-
+        //$twig = new Twig_Environment($loader);  
+        $twig = new Twig_Environment($loader, array(
+            'debug' => true,
+            // ...
+        ));
+        $twig->addExtension(new Twig_Extension_Debug());
         //load template file  
         try 
         {

@@ -109,7 +109,7 @@ class Inventario extends MyPDO{
                 ON ultimo_conteo.producto_id = producto.id     
         LEFT JOIN bodega
                 ON ultimo_conteo.bodega_id = bodega.id
-
+        WHERE producto.eliminado = 0
         -- WHERE ultimo_conteo.producto_id = 1518;";                
         
         $response = $this ->consult($sql);
@@ -235,7 +235,8 @@ class Inventario extends MyPDO{
             ventas.bodega_id,
             ventas.cantidad,
             bodega.nombre as 'bodega_nombre',
-            producto.codigo as 'producto_codigo'
+            producto.codigo as 'producto_codigo',
+            producto.eliminado as 'producto_eliminado'
         FROM
         (
             SELECT

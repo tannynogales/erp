@@ -216,6 +216,7 @@ class InventarioController extends BasisController
     
     public function VerstockAction()//$create_result="")
     {
+        ini_set('max_execution_time', 300); //300 seconds = 5 minutes
         $inventario = new Inventario();
         $conteos    = $inventario->getUltimoConteo();
         //print_r($conteos);

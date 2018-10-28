@@ -2,10 +2,10 @@
 return array
 (
     "driver"    =>"mysql",
-    "host"      =>"localhost",
-    "user"      =>"root",
-    "pass"      =>"",
-    "database"  =>"tanny_neges",
+    "host"      =>"neges.net",
+    "user"      =>"tanny",
+    "pass"      =>"Ambrosoli88",
+    "database"  =>"tanny_roble_erp",
     "charset"   =>"utf8"
 );
 ?>
