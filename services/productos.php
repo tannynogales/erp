@@ -13,15 +13,6 @@ foreach(glob("../model/*.php") as $file)
     require_once $file;
 } 
 
-if(!isset($_GET["codigo"]))
-{
-    header("HTTP/1.0 404 Not Found");
-    die;
-}
-else
-{
-    $codigo = $_GET["codigo"];
-}
                 
 $response = 
 [
@@ -47,8 +38,9 @@ $response["CodImpAdic"] = NULL;
 
 $producto = new Producto();
 
-$products = $producto->getBy("codigo", $_GET["codigo"]);
-//var_dump($products[0]);
+$products = $producto->getAll();
+var_dump($products);
+exit();
 if(count($products)>0)
 {
     /*
